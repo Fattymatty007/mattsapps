@@ -76,6 +76,14 @@
       .products { grid-template-columns: 1fr 1fr; }
     }
 
+    .section-title {
+      color: var(--chalk);
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin: 22px 0 10px;
+    }
+
     .product {
       background: var(--panel);
       border: 1px solid var(--panel-border);
@@ -173,8 +181,12 @@
       <div class="eyebrow">SHOP</div>
       <h1>prompt packs</h1>
     </header>
-    <p class="lede">100 copy-paste AI prompts per pack. Instant PDF download, works with ChatGPT, Claude, Gemini &amp; Copilot.</p>
+    <p class="lede">Copy-paste AI prompts. Instant PDF download, works with ChatGPT, Claude, Gemini &amp; Copilot.</p>
 
+    <h2 class="section-title">Bundles &mdash; best value</h2>
+    <div class="products" id="bundles"></div>
+
+    <h2 class="section-title">Individual packs</h2>
     <div class="products" id="products"></div>
 
     <p class="note">Secure checkout via Lemon Squeezy. Digital downloads — nothing ships. If a file ever gives you trouble, just reply to your receipt email and we'll sort it out.</p>
@@ -184,6 +196,23 @@
 
   <script>
     // Lemon Squeezy checkout URLs — one per product.
+    const BUNDLES = [
+      {
+        name: 'The Business AI Prompt Pack Bundle',
+        tag: '200 prompts — Small Business + Holiday Marketing. Save $7 vs buying separately',
+        price: '$17',
+        img: 'shop/img/business-bundle.jpg',
+        buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/02291801-67c9-416e-ab52-cb6af4e3b573',
+      },
+      {
+        name: 'The Seasonal AI Prompt Pack Bundle',
+        tag: '300 prompts — Halloween + Christmas Planning + New Year Reset. Save $11 vs buying separately',
+        price: '$25',
+        img: 'shop/img/seasonal-bundle.jpg',
+        buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/a68bfcdb-ddb5-4e7f-91b4-5b3f9e1bb2f7',
+      },
+    ];
+
     const PRODUCTS = [
       {
         name: 'The Small Business AI Prompt Pack',
@@ -229,23 +258,28 @@
       },
     ];
 
-    const container = document.getElementById('products');
-    for (const p of PRODUCTS) {
-      const div = document.createElement('div');
-      div.className = 'product';
-      div.innerHTML = `
-        <img src="${p.img}" alt="${p.name}" loading="lazy" />
-        <div class="product-body">
-          <div class="product-name">${p.name}</div>
-          <div class="product-tag">${p.tag}</div>
-          <div class="product-row">
-            <div class="price">${p.price}</div>
-            <a class="buy" href="${p.buy}">Buy</a>
+    function render(list, containerId) {
+      const container = document.getElementById(containerId);
+      for (const p of list) {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" loading="lazy" />
+          <div class="product-body">
+            <div class="product-name">${p.name}</div>
+            <div class="product-tag">${p.tag}</div>
+            <div class="product-row">
+              <div class="price">${p.price}</div>
+              <a class="buy" href="${p.buy}">Buy</a>
+            </div>
           </div>
-        </div>
-      `;
-      container.appendChild(div);
+        `;
+        container.appendChild(div);
+      }
     }
+
+    render(BUNDLES, 'bundles');
+    render(PRODUCTS, 'products');
   </script>
 </body>
 </html>
