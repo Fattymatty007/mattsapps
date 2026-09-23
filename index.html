@@ -40,6 +40,40 @@
       margin-bottom: 24px;
     }
 
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .shop-btn {
+      display: block;
+      flex-shrink: 0;
+      text-align: center;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.75rem;
+      padding: 10px 14px;
+      text-decoration: none;
+      transition: border-color 0.15s ease;
+    }
+    .shop-btn:hover {
+      border-color: var(--mustard);
+    }
+    .shop-btn-title {
+      display: block;
+      color: var(--chalk);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .shop-btn-sub {
+      display: block;
+      color: var(--sage);
+      font-size: 0.7rem;
+      margin-top: 2px;
+    }
+
     .eyebrow {
       color: var(--mustard);
       font-family: 'JetBrains Mono', monospace;
@@ -150,9 +184,15 @@
 </head>
 <body>
   <main>
-    <header>
-      <div class="eyebrow">APPS</div>
-      <h1>mattsapps</h1>
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">APPS</div>
+        <h1>mattsapps</h1>
+      </div>
+      <a class="shop-btn" href="shop.html">
+        <span class="shop-btn-title">Enter Shop</span>
+        <span class="shop-btn-sub">AI Prompts and other Products</span>
+      </a>
     </header>
     <div class="membership">
       <div class="eyebrow">MEMBERSHIP</div>
@@ -164,15 +204,6 @@
       </div>
     </div>
     <div class="apps" id="apps"></div>
-    <header style="margin-top: 28px; margin-bottom: 12px;">
-      <div class="eyebrow">SHOP</div>
-    </header>
-    <div class="apps">
-      <a class="card" href="shop.html">
-        <div class="card-name">Shop</div>
-        <div class="card-tagline">AI prompt packs &amp; membership</div>
-      </a>
-    </div>
     <footer>more apps coming soon</footer>
   </main>
 
