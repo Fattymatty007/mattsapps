@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATTACTIX — Official Rules</title>
+  <meta name="description" content="Official rules for ATTACTIX, the 2-player simultaneous-reveal combat card game." />
+  <link rel="icon" href="ax-sigil.png" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #0b0b0c;
+      --panel: #141416;
+      --panel-border: #2a2a2e;
+      --ink: #ece7db;
+      --ink-dim: #b9b4a6;
+      --blood: #c1121f;
+      --blood-dark: #7a0a12;
+      --crimson: #a00e0e;
+      --teal: #0e5a5a;
+      --gold: #8a6d3b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: 'Inter', sans-serif; line-height: 1.65;
+      display: flex; justify-content: center; padding: 0 16px 64px;
+    }
+    main { width: 100%; max-width: 46rem; }
+    .eyebrow {
+      color: var(--blood); font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem; letter-spacing: .22em; text-transform: uppercase;
+    }
+    .hero { text-align: center; padding: 40px 0 8px; }
+    .hero img.logo { width: min(100%, 520px); height: auto; display: block; margin: 0 auto 12px; }
+    .tagline { color: var(--ink-dim); font-size: .95rem; margin: 6px 0 20px; }
+    .btnrow { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 8px; }
+    .btn {
+      display: inline-block; padding: 12px 22px; border-radius: 8px;
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      background: linear-gradient(180deg, var(--blood), var(--blood-dark));
+      color: #fff; border: 1px solid #000;
+    }
+    .btn.ghost { background: transparent; border: 1px solid var(--panel-border); color: var(--ink); }
+    .btn:hover { filter: brightness(1.15); }
+    h2 {
+      font-family: 'Metal Mania', cursive; font-weight: 400;
+      font-size: 2rem; letter-spacing: .04em; color: var(--ink);
+      border-bottom: 1px solid var(--panel-border);
+      padding-bottom: 6px; margin: 44px 0 16px;
+    }
+    h2 .eyebrow { display: block; margin-bottom: 2px; }
+    ol.steps { padding-left: 1.4rem; }
+    ol.steps li { margin-bottom: 10px; }
+    ol.steps li::marker { color: var(--blood); font-weight: 700; }
+    strong { color: #fff; }
+    .callout {
+      background: var(--panel); border: 1px solid var(--panel-border);
+      border-left: 3px solid var(--blood); border-radius: 0 8px 8px 0;
+      padding: 14px 18px; margin: 20px 0; color: var(--ink-dim); font-size: .93rem;
+    }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--panel); border: 1px solid var(--panel-border);
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 1.05rem; letter-spacing: .03em; }
+    .card p { margin: 0; font-size: .9rem; color: var(--ink-dim); }
+    .card p + p { margin-top: 8px; }
+    .badge {
+      display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+      letter-spacing: .14em; padding: 3px 10px; border-radius: 20px;
+      color: #fff; margin-bottom: 8px; border: 1px solid #000;
+    }
+    .badge.attack { background: linear-gradient(180deg, #7a0e0e, #4a0808); }
+    .badge.tactic { background: linear-gradient(180deg, #0e4a4a, #082a2a); }
+    .badge .d { opacity: .75; }
+    details { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 8px; padding: 12px 16px; margin: 10px 0; }
+    details summary { cursor: pointer; font-weight: 600; font-size: .92rem; }
+    details p { font-size: .88rem; color: var(--ink-dim); }
+    footer { text-align: center; margin-top: 56px; color: var(--ink-dim); font-size: .85rem; }
+    footer img { width: 72px; height: 72px; opacity: .9; }
+    footer a { color: var(--ink); }
+    .back { display: inline-block; color: var(--ink-dim); font-size: .85rem; text-decoration: none; margin: 28px 0 0; }
+    .back:hover { color: #fff; }
+    ul.tight li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="https://mattsapps.xyz">&larr; mattsapps.xyz</a>
+
+  <div class="hero">
+    <div class="eyebrow">A 2-player simultaneous-reveal combat card game</div>
+    <img class="logo" src="logo.png" alt="ATTACTIX" />
+    <p class="tagline">Eight cards. Thirty life. No mercy. Pick in secret, reveal together, and bury your rival.</p>
+    <div class="btnrow">
+      <a class="btn" href="attactix-print-and-play.pdf" download>Download Print-and-Play PDF</a>
+      <a class="btn ghost" href="#quickstart">Quick Start</a>
+    </div>
+  </div>
+
+  <h2 id="quickstart"><span class="eyebrow">Learn in 60 seconds</span>Quick Start</h2>
+  <ol class="steps">
+    <li><strong>Setup:</strong> 30 life each. Both players hold the same 8 cards.</li>
+    <li><strong>Each turn:</strong> secretly pick 1 card, then reveal together.</li>
+    <li><strong>Combat:</strong> attacks roll D6s. <strong>Swift Strike</strong> hits first. <strong>Block</strong> stops all damage. <strong>Parry</strong> steals 1D6 and deals its face value back.</li>
+    <li><strong>Cycles:</strong> played cards stay face-up. When all 8 are spent, take them back and begin a new cycle. Life carries over.</li>
+    <li><strong>Winning:</strong> drop your rival to 0 life to win. Both hit 0: draw.</li>
+  </ol>
+
+  <h2><span class="eyebrow">The goal</span>Objective</h2>
+  <p>Bring your opponent's life total to zero before yours reaches zero.</p>
+
+  <h2><span class="eyebrow">Before the first turn</span>Setup</h2>
+  <ol class="steps">
+    <li>Each player assembles their opening hand of <strong>8 cards</strong>: Overhead Swing, Swift Strike, Final Assault, Block, Recover, Power Charge, Copy Cat, and Parry.</li>
+    <li>Each player sets their life total to <strong>30</strong>. Six D6s set to 5 is the easiest way to track it, but any arrangement totaling 30 works.</li>
+  </ol>
+  <p>You are ready to play.</p>
+
+  <h2><span class="eyebrow">Turn structure</span>How to Play</h2>
+  <ol class="steps">
+    <li><strong>Choose.</strong> Each player secretly chooses one card from their hand and plays it face down.</li>
+    <li><strong>Reveal.</strong> Both players reveal their cards at the same time.</li>
+    <li><strong>Roll.</strong> Each player who played an attack card rolls their battle D6s now, adding any stored Power Charge D6s.</li>
+    <li><strong>Parry interception.</strong> Each player who played Parry chooses <strong>one</strong> D6 from an opponent's attack roll &mdash; after the roll, but before the attacker discards or makes any tie-break choices. Parry deals damage equal to that D6's face value to the attacker, then that D6 is removed. The attack resolves without it.</li>
+    <li><strong>Resolve.</strong> All remaining effects happen <strong>simultaneously</strong>, with two exceptions:
+      <ul class="tight">
+        <li><strong>Swift Strike</strong> damage resolves <em>before</em> all other effects &mdash; but <em>after</em> any Parry interception, and it can still be prevented by Block. If both players' Swift Strikes (or a Swift Strike and a Copy Cat copying one) meet, they resolve at the same time as each other.</li>
+        <li><strong>Parry</strong> interception (step 4) always happens before damage is calculated, which is how it catches even Swift Strike.</li>
+      </ul>
+    </li>
+    <li>Played cards stay face up off to the side where both players can see them. That ends the turn.</li>
+  </ol>
+  <div class="callout">
+    When every card in each player's hand has been played, each player picks up their played cards and reassembles their opening hand. <strong>Life totals carry over.</strong> Play continues until someone's life total is zero or below &mdash; that player loses. If both players hit zero or below on the same turn, the game is a <strong>draw</strong>.
+  </div>
+
+  <div class="callout">
+    <strong>D6 notation:</strong> &ldquo;1D6&rdquo; means roll one six-sided battle D6; &ldquo;2D6&rdquo; means roll two. &ldquo;Deal 1D6 damage&rdquo; = roll one D6, deal damage equal to the result.
+  </div>
+
+  <h2><span class="eyebrow">The arsenal</span>The 8 Cards</h2>
+  <div class="cards">
+    <div class="card">
+      <span class="badge attack">ATTACK</span>
+      <h3>Overhead Swing</h3>
+      <p>Roll 2D6 and discard the lowest D6 (if tied, the attacker chooses which to discard). Deal damage equal to the remaining D6.</p>
+      <p>Pairs with Power Charge: add the charge D6s to the roll, but still discard only the single lowest D6.</p>
+    </div>
+    <div class="card">
+      <span class="badge attack">ATTACK</span>
+      <h3>Swift Strike</h3>
+      <p>Roll 1D6 and deal damage equal to the result. This damage resolves <strong>before</strong> all other effects (after Parry interception), so it can finish an opponent before their Recover or other tactics resolve. It <strong>can</strong> be prevented by Block.</p>
+      <p>If the opponent also plays Swift Strike &mdash; or a Copy Cat copying one &mdash; both resolve at the same time.</p>
+    </div>
+    <div class="card">
+      <span class="badge attack">ATTACK</span>
+      <h3>Final Assault</h3>
+      <p>Roll 1D6 and multiply the result by 3. Deal damage equal to the total.</p>
+      <p>Pairs with Power Charge &mdash; devastating. The setup is public and telegraphed, so a smart rival holds Block or Parry for it.</p>
+    </div>
+    <div class="card">
+      <span class="badge tactic">TACTIC</span>
+      <h3>Block</h3>
+      <p>Prevent <strong>all</strong> damage that would be dealt to you this turn, including Swift Strike and Parry damage. Non-damage effects (like an opponent's Recover) still happen.</p>
+      <p>Block is the only clean answer to an attack stacked with multiple Power Charge D6s.</p>
+    </div>
+    <div class="card">
+      <span class="badge tactic">TACTIC</span>
+      <h3>Recover</h3>
+      <p>Roll 2D6 and gain life equal to the total. Your life <strong>can</strong> go above your starting 30.</p>
+      <p>Since effects are simultaneous, Recover can save you: at 3 life, if the rival's Overhead Swing rolls 3 and your Recover rolls 4, you survive at 1 life. The exception is Swift Strike, which resolves first.</p>
+    </div>
+    <div class="card">
+      <span class="badge tactic">TACTIC</span>
+      <h3>Power Charge</h3>
+      <p>Store <strong>one</strong> battle D6 in front of you as a charge pool. It is added to the roll of your <strong>next</strong> attack card &mdash; you must add it regardless of which attack you play, even if your opponent plays Block. Multiple D6s can be stored. Stored D6s stay until used.</p>
+    </div>
+    <div class="card">
+      <span class="badge tactic">TACTIC</span>
+      <h3>Copy Cat</h3>
+      <p>Copy the card your opponent played this turn; the copy resolves as that card. Timing matches the original &mdash; including Swift Strike's priority.</p>
+      <p>If <strong>both</strong> players play Copy Cat, no effects happen. Copying Power Charge adds a D6 to your charge pool too. Parry can target your Copy Cat if it copied an attack card.</p>
+    </div>
+    <div class="card">
+      <span class="badge tactic">TACTIC</span>
+      <h3>Parry</h3>
+      <p><strong>Interception.</strong> If your opponent played an attack card this turn, choose one D6 from their attack roll (after they roll, before they discard or break ties &mdash; this includes any Power Charge D6s they added). Deal damage to the attacker equal to that D6's <strong>face value</strong> (not multiplied), then remove the D6: their attack resolves without it. This works against <strong>every</strong> attack, including Swift Strike.</p>
+      <p>vs. charge-stacked attacks (3+ D6s): only one D6 is removed, so the remaining D6s still deal damage &mdash; this is where Block outperforms Parry. If your opponent did <strong>not</strong> play an attack, Parry has no valid target and nothing happens.</p>
+    </div>
+  </div>
+
+  <h2><span class="eyebrow">From the designer</span>Design Notes</h2>
+  <details>
+    <summary>Why is Final Assault + stacked Power Charge allowed to one-shot?</summary>
+    <p>It's a fair finisher, not a flaw. Charges are public, the setup costs two dead turns, discards are public so both players can always see whether Block or Parry are still live &mdash; and Recover is uncapped. If you walk into it, you earned it.</p>
+  </details>
+  <details>
+    <summary>Why three defensive cards?</summary>
+    <p>Each has a clean role: <strong>Block</strong> stops everything including stacked attacks, <strong>Parry</strong> turns single attacks back on the attacker, <strong>Recover</strong> gains life. No buffs needed.</p>
+  </details>
+
+  <div class="btnrow" style="margin-top:36px">
+    <a class="btn" href="attactix-print-and-play.pdf" download>Download Print-and-Play PDF</a>
+  </div>
+  <p style="text-align:center;color:var(--ink-dim);font-size:.88rem">Print the sheet twice &mdash; each player needs one full 8-card set. The extra Quick Start is a spare.</p>
+
+  <footer>
+    <img src="ax-sigil.png" alt="ATTACTIX sigil" />
+    <p><strong style="font-family:'Metal Mania',cursive;font-weight:400;font-size:1.3rem;letter-spacing:.06em">ATTACTIX</strong><br/>
+    Designed by Matt &middot; <a href="https://mattsapps.xyz">mattsapps.xyz</a> &middot; <a href="https://mattsapps.xyz/shop.html">Shop</a></p>
+  </footer>
+</main>
+</body>
+</html>
