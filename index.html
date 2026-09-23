@@ -90,6 +90,44 @@
       font-size: 0.85rem;
     }
 
+    .membership {
+      background: var(--panel);
+      border: 1px solid var(--mustard);
+      border-radius: 0.75rem;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .membership-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .price {
+      color: var(--chalk);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .price small {
+      color: var(--chalk-dim);
+      font-weight: 400;
+      font-size: 0.75rem;
+    }
+
+    .join {
+      background: var(--mustard);
+      color: #2B2E27;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 0.5rem;
+      padding: 10px 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .join:hover { filter: brightness(1.08); }
+
     .empty {
       color: var(--chalk-dim);
       font-size: 0.85rem;
@@ -116,6 +154,15 @@
       <div class="eyebrow">APPS</div>
       <h1>mattsapps</h1>
     </header>
+    <div class="membership">
+      <div class="eyebrow">MEMBERSHIP</div>
+      <div class="card-name">All-Access</div>
+      <div class="card-tagline">Every app, every future drop. $1/month, billed annually.</div>
+      <div class="membership-row">
+        <div class="price">$12 <small>/ year</small></div>
+        <a class="join" href="https://mattsapps.lemonsqueezy.com/checkout/buy/844a4029-82df-4705-97d7-8d78ef04d801">Join</a>
+      </div>
+    </div>
     <div class="apps" id="apps"></div>
     <header style="margin-top: 28px; margin-bottom: 12px;">
       <div class="eyebrow">SHOP</div>
