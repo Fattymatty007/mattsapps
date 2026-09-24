@@ -155,6 +155,17 @@
     }
     .buy:hover { filter: brightness(1.08); }
 
+    .actions { display: flex; align-items: center; gap: 10px; }
+
+    .rules-link {
+      color: var(--sage);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .rules-link:hover { color: var(--chalk); text-decoration: underline; }
+
     .note {
       color: var(--chalk-dim);
       opacity: 0.7;
@@ -189,6 +200,9 @@
     <h2 class="section-title">Individual packs</h2>
     <div class="products" id="products"></div>
 
+    <h2 class="section-title">Games</h2>
+    <div class="products" id="games"></div>
+
     <p class="note">Secure checkout via Lemon Squeezy. Digital downloads — nothing ships. If a file ever gives you trouble, just reply to your receipt email and we'll sort it out.</p>
 
     <footer>mattsapps</footer>
@@ -210,6 +224,17 @@
         price: '$25',
         img: 'shop/img/seasonal-bundle.jpg',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/a68bfcdb-ddb5-4e7f-91b4-5b3f9e1bb2f7',
+      },
+    ];
+
+    const GAMES = [
+      {
+        name: 'ATTACTIX — Print-and-Play',
+        tag: 'The 2-player combat card game. 9 true-size cards — print twice and play tonight',
+        price: '$5',
+        img: 'shop/img/attactix.jpg',
+        buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/405bda58-66a9-447a-b528-adc8e401b901',
+        extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
       },
     ];
 
@@ -270,7 +295,10 @@
             <div class="product-tag">${p.tag}</div>
             <div class="product-row">
               <div class="price">${p.price}</div>
-              <a class="buy" href="${p.buy}">Buy</a>
+              <div class="actions">
+                ${p.extra ? `<a class="rules-link" href="${p.extra.href}">${p.extra.label}</a>` : ''}
+                <a class="buy" href="${p.buy}">Buy</a>
+              </div>
             </div>
           </div>
         `;
@@ -280,6 +308,7 @@
 
     render(BUNDLES, 'bundles');
     render(PRODUCTS, 'products');
+    render(GAMES, 'games');
   </script>
 </body>
 </html>
