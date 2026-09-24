@@ -112,7 +112,19 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      position: relative;
+      transition: border-color 0.15s ease;
     }
+    .product:hover { border-color: var(--mustard); }
+
+    .stretched-link::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
+
+    .buy, .rules-under { position: relative; z-index: 1; }
 
     .product img {
       width: 100%;
@@ -244,6 +256,7 @@
         tag: '200 prompts — Small Business + Holiday Marketing. Save $7 vs buying separately',
         price: '$17',
         img: 'shop/img/business-bundle.jpg',
+        link: 'shop/products/business-ai-prompt-pack-bundle.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/02291801-67c9-416e-ab52-cb6af4e3b573',
       },
       {
@@ -251,6 +264,7 @@
         tag: '300 prompts — Halloween + Christmas Planning + New Year Reset. Save $11 vs buying separately',
         price: '$25',
         img: 'shop/img/seasonal-bundle.jpg',
+        link: 'shop/products/seasonal-ai-prompt-pack-bundle.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/a68bfcdb-ddb5-4e7f-91b4-5b3f9e1bb2f7',
       },
     ];
@@ -261,6 +275,7 @@
         tag: 'Print-and-play edition — the 2-player combat card game. 9 true-size cards, print twice and play tonight',
         price: '$5',
         img: 'shop/img/attactix.jpg',
+        link: 'shop/products/attactix-print-and-play.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/405bda58-66a9-447a-b528-adc8e401b901',
         extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
       },
@@ -272,6 +287,7 @@
         tag: '100 prompts for marketing, content, customers & more',
         price: '$12',
         img: 'shop/img/small-business.jpg',
+        link: 'shop/products/small-business-ai-prompt-pack.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/57b4277a-9830-46be-a6a0-7ac3de4bec8a',
       },
       {
@@ -279,6 +295,7 @@
         tag: '100 prompts for home, family & everyday life',
         price: '$12',
         img: 'shop/img/everyday.jpg',
+        link: 'shop/products/everyday-ai-prompt-pack.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/0d30b682-5bf1-483a-ac67-ccf7573c9254',
       },
       {
@@ -286,6 +303,7 @@
         tag: '100 prompts for parties, costumes, decor & spooky fun',
         price: '$12',
         img: 'shop/img/halloween.jpg',
+        link: 'shop/products/halloween-ai-prompt-pack.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/ae7de92c-a421-46e4-9d5a-80a10df705d3',
       },
       {
@@ -293,6 +311,7 @@
         tag: '100 prompts for Black Friday & Christmas sales',
         price: '$12',
         img: 'shop/img/holiday-marketing.jpg',
+        link: 'shop/products/holiday-marketing-ai-prompt-pack.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/f849d7ae-6367-4806-ac03-270f8ecf1ac9',
       },
       {
@@ -300,6 +319,7 @@
         tag: '100 prompts for gifts, meals, decor, budget & hosting',
         price: '$12',
         img: 'shop/img/christmas.jpg',
+        link: 'shop/products/christmas-holiday-planning-ai-prompt-pack.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/3fb7f9e1-616f-4b50-9b69-6d31af58e53e',
       },
       {
@@ -307,6 +327,7 @@
         tag: '100 prompts for 2027 goals, habits & life planning',
         price: '$12',
         img: 'shop/img/newyear.jpg',
+        link: 'shop/products/new-year-reset-ai-prompt-pack.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/8d9177a7-d896-4e96-8321-ddf70efd24cd',
       },
     ];
@@ -318,6 +339,7 @@
         wrap.className = 'product-wrap';
         wrap.innerHTML = `
           <div class="product">
+          <a class="stretched-link" href="${p.link}" aria-label="View details: ${p.name}"></a>
           <img src="${p.img}" alt="${p.name}" loading="lazy" />
           <div class="product-body">
             <div class="product-name">${p.name}</div>
