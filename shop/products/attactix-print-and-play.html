@@ -73,23 +73,60 @@
     .extralink { display: inline-block; margin-top: 10px; color: var(--sage);
       font-size: 0.88rem; font-weight: 500; text-decoration: none; }
     .extralink:hover { color: var(--chalk); text-decoration: underline; }
+    .sigil-hero { text-align: center; margin: 4px 0 2px; }
+    .sigil-hero img { width: 88px; height: 88px;
+      filter: drop-shadow(0 0 12px rgba(201,162,39,.5)); }
+    .thumbs { flex-wrap: wrap; }
+    .cardgrid { display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-top: 8px; }
+    @media (max-width: 640px) { .cardgrid { grid-template-columns: repeat(2, 1fr); } }
+    .cardgrid figure { margin: 0; background: var(--panel);
+      border: 1px solid var(--panel-border); border-radius: 0.6rem; overflow: hidden; }
+    .cardgrid img { width: 100%; display: block; aspect-ratio: 5 / 7;
+      object-fit: cover; cursor: pointer; }
+    .cardgrid figcaption { padding: 8px 10px 10px; font-size: 0.78rem;
+      color: var(--chalk-dim); line-height: 1.4; }
+    .cardgrid figcaption b { color: var(--chalk); display: block; font-size: 0.82rem; }
   </style>
 </head>
 <body>
   <main>
     <a class="back" href="../../shop.html">&larr; back to shop</a>
+    <div class="sigil-hero"><img src="../../attactix/ax-sigil.png" alt="ATTACTIX sigil" /></div>
     <div class="eyebrow">SHOP &mdash; GAMES</div>
     <h1>ATTACTIX — Print-and-Play</h1>
     <p class="tagline">The 2-player simultaneous-reveal combat card game. Print tonight, play tonight.</p>
 
     <img class="gallery-main" id="mainimg" src="../img/attactix.jpg" alt="ATTACTIX — Print-and-Play" />
-    
+    <div class="thumbs">
+      <img src="../img/attactix.jpg" alt="ATTACTIX — Print-and-Play preview 1" class="active" />
+      <img src="../../attactix/img/cards/overhead-swing.jpg" alt="ATTACTIX — Print-and-Play preview 2" class="" />
+      <img src="../../attactix/img/cards/swift-strike.jpg" alt="ATTACTIX — Print-and-Play preview 3" class="" />
+      <img src="../../attactix/img/cards/final-assault.jpg" alt="ATTACTIX — Print-and-Play preview 4" class="" />
+      <img src="../../attactix/img/cards/block.jpg" alt="ATTACTIX — Print-and-Play preview 5" class="" />
+      <img src="../../attactix/img/cards/recover.jpg" alt="ATTACTIX — Print-and-Play preview 6" class="" />
+      <img src="../../attactix/img/cards/power-charge.jpg" alt="ATTACTIX — Print-and-Play preview 7" class="" />
+      <img src="../../attactix/img/cards/copy-cat.jpg" alt="ATTACTIX — Print-and-Play preview 8" class="" />
+      <img src="../../attactix/img/cards/parry.jpg" alt="ATTACTIX — Print-and-Play preview 9" class="" />
+    </div>
 
     <div class="buyrow">
       <div class="price">$5</div>
       <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/405bda58-66a9-447a-b528-adc8e401b901">Buy now</a>
     </div>
     <a class="extralink" href="https://mattsapps.xyz/attactix">Read the full rules &rarr;</a>
+    <h2>The 8 cards</h2>
+    <div class="cardgrid">
+      <figure><img src="../../attactix/img/cards/overhead-swing.jpg" alt="Overhead Swing" loading="lazy" /><figcaption><b>Overhead Swing</b>Roll 2D6, keep the best. The reliable workhorse.</figcaption></figure>
+      <figure><img src="../../attactix/img/cards/swift-strike.jpg" alt="Swift Strike" loading="lazy" /><figcaption><b>Swift Strike</b>Hits before everything else. The finisher.</figcaption></figure>
+      <figure><img src="../../attactix/img/cards/final-assault.jpg" alt="Final Assault" loading="lazy" /><figcaption><b>Final Assault</b>Triple a D6. The telegraphed nuke.</figcaption></figure>
+      <figure><img src="../../attactix/img/cards/block.jpg" alt="Block" loading="lazy" /><figcaption><b>Block</b>Stops ALL damage. The wall.</figcaption></figure>
+      <figure><img src="../../attactix/img/cards/recover.jpg" alt="Recover" loading="lazy" /><figcaption><b>Recover</b>Roll 2D6, gain the life. The comeback.</figcaption></figure>
+      <figure><img src="../../attactix/img/cards/power-charge.jpg" alt="Power Charge" loading="lazy" /><figcaption><b>Power Charge</b>Bank D6s for your next attack. The setup.</figcaption></figure>
+      <figure><img src="../../attactix/img/cards/copy-cat.jpg" alt="Copy Cat" loading="lazy" /><figcaption><b>Copy Cat</b>Become whatever they played. The mirror.</figcaption></figure>
+      <figure><img src="../../attactix/img/cards/parry.jpg" alt="Parry" loading="lazy" /><figcaption><b>Parry</b>Steal a D6, deal it back. The punish.</figcaption></figure>
+    </div>
+    <p class="plus">Tap any card to inspect it up close.</p>
 
     <h2>What&rsquo;s inside</h2>
     <ul class="whats">
@@ -137,6 +174,13 @@
         main.src = t.src;
         document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
         t.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.cardgrid img').forEach(g => {
+      g.addEventListener('click', () => {
+        main.src = g.src;
+        document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
+        main.scrollIntoView({behavior: 'smooth', block: 'center'});
       });
     });
   </script>
