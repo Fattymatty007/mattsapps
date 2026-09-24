@@ -67,6 +67,26 @@
     }
     .back:hover { color: var(--chalk); }
 
+    html { scroll-behavior: smooth; }
+
+    .shortcuts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .shortcut {
+      color: var(--chalk);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--panel-border-light);
+      border-radius: 999px;
+      padding: 6px 14px;
+      background: var(--panel);
+    }
+    .shortcut:hover { border-color: var(--mustard); color: var(--mustard); }
+
     .products {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -82,6 +102,7 @@
       font-weight: 700;
       font-size: 1.4rem;
       margin: 22px 0 10px;
+      scroll-margin-top: 12px;
     }
 
     .product {
@@ -194,13 +215,19 @@
     </header>
     <p class="lede">Copy-paste AI prompts. Instant PDF download, works with ChatGPT, Claude, Gemini &amp; Copilot.</p>
 
-    <h2 class="section-title">Bundles &mdash; best value</h2>
+    <nav class="shortcuts" aria-label="Shop sections">
+      <a class="shortcut" href="#bundles-section">Bundles</a>
+      <a class="shortcut" href="#packs-section">Individual packs</a>
+      <a class="shortcut" href="#games-section">Games</a>
+    </nav>
+
+    <h2 class="section-title" id="bundles-section">Bundles &mdash; best value</h2>
     <div class="products" id="bundles"></div>
 
-    <h2 class="section-title">Individual packs</h2>
+    <h2 class="section-title" id="packs-section">Individual packs</h2>
     <div class="products" id="products"></div>
 
-    <h2 class="section-title">Games</h2>
+    <h2 class="section-title" id="games-section">Games</h2>
     <div class="products" id="games"></div>
 
     <p class="note">Secure checkout via Lemon Squeezy. Digital downloads — nothing ships. If a file ever gives you trouble, just reply to your receipt email and we'll sort it out.</p>
