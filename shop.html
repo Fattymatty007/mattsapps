@@ -124,7 +124,7 @@
       border-radius: inherit;
     }
 
-    .buy, .rules-under { position: relative; z-index: 1; }
+    .buy, .rules-under, .pdf-under { position: relative; z-index: 1; }
 
     .product img {
       width: 100%;
@@ -199,7 +199,7 @@
       text-decoration: none;
       padding: 10px 4px 2px;
     }
-    .rules-under:hover { color: var(--chalk); text-decoration: underline; }
+    .rules-under:hover { color: var(--chalk); text-decoration: underline; } .pdf-under { display: block; text-align: center; color: var(--chalk-dim); font-size: 0.76rem; text-decoration: none; padding: 8px 4px 2px; opacity: 0.85; } .pdf-under:hover { color: var(--mustard); text-decoration: underline; }
 
     .note {
       color: var(--chalk-dim);
@@ -272,11 +272,11 @@
     const GAMES = [
       {
         name: 'ATTACTIX',
-        tag: 'Print-and-play edition — the 2-player combat card game. 9 true-size cards, print twice and play tonight',
-        price: '$5',
+        tag: 'Physical edition — the 2-player combat card game. Shipped to your door.',
+        price: '$24.99',
         img: 'shop/img/attactix.jpg',
         link: 'shop/products/attactix-print-and-play.html',
-        buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/405bda58-66a9-447a-b528-adc8e401b901',
+        buy: 'https://www.etsy.com/listing/4582181847/attactix-card-game-2-player-strategy', pdf: 'https://mattsapps.lemonsqueezy.com/checkout/buy/405bda58-66a9-447a-b528-adc8e401b901',
         extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
       },
     ];
@@ -347,7 +347,7 @@
             <div class="product-row">
               <div class="price">${p.price}</div>
               <a class="buy" href="${p.buy}">Buy</a>
-            </div>
+            </div>${p.pdf ? `<a class="pdf-under" href="${p.pdf}">or get the print-and-play PDF for $5 &rarr;</a>` : ''}
           </div>
           </div>
           ${p.extra ? `<a class="rules-under" href="${p.extra.href}">${p.extra.label} &rarr;</a>` : ''}
