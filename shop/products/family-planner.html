@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Family Planner — mattsapps shop</title>
+  <meta name="description" content="Printable family planner: weekly family schedules, meal plans, kids' activity tracker, chore charts, school and appointment tracking. Instant PDF download." />
+  <link rel="icon" href="data:," />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+    :root {
+      --bg: #2B2E27; --panel: #34372E; --panel-border: #454A3D;
+      --panel-border-light: #565C4B; --chalk: #F2EFE6; --chalk-dim: #C9C6BA;
+      --mustard: #C9A227; --sage: #8B9A7D;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; background: var(--bg);
+      font-family: 'Inter', sans-serif; display: flex;
+      justify-content: center; padding: 32px 16px; color: var(--chalk);
+    }
+    main { width: 100%; max-width: 40rem; }
+    .back { display: inline-block; color: var(--sage); font-size: 0.85rem;
+      text-decoration: none; margin-bottom: 20px; }
+    .back:hover { color: var(--chalk); }
+    .eyebrow { color: var(--mustard); font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.15em; margin-bottom: 4px; }
+    h1 { font-family: 'Caveat', cursive; font-weight: 700; font-size: 2.2rem;
+      margin: 0 0 4px; line-height: 1.1; }
+    .tagline { color: var(--chalk-dim); font-size: 0.95rem; margin: 0 0 16px; }
+    .gallery-main {
+      width: 100%; border-radius: 0.75rem; border: 1px solid var(--panel-border);
+      display: block; background: var(--panel);
+    }
+    .thumbs { display: flex; gap: 8px; margin-top: 8px; }
+    .thumbs img {
+      width: 76px; height: 98px; object-fit: cover; border-radius: 0.4rem;
+      border: 1px solid var(--panel-border); cursor: pointer; background: var(--panel);
+    }
+    .thumbs img.active { border-color: var(--mustard); }
+    .buyrow { display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin: 18px 0 6px; }
+    .price { font-weight: 600; font-size: 1.6rem; }
+    .buy { background: var(--mustard); color: #2B2E27; font-weight: 600;
+      font-size: 1rem; border: none; border-radius: 0.6rem; padding: 12px 30px;
+      cursor: pointer; text-decoration: none; display: inline-block; }
+    .buy:hover { filter: brightness(1.08); }
+    h2 { font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.5rem;
+      margin: 26px 0 8px; }
+    ul.whats { margin: 0; padding-left: 1.1rem; color: var(--chalk-dim);
+      font-size: 0.9rem; line-height: 1.55; }
+    ul.whats li { margin-bottom: 5px; }
+    ul.whats b { color: var(--chalk); font-weight: 600; }
+    .plus { color: var(--chalk-dim); font-size: 0.85rem; margin-top: 10px; }
+    ol.steps { margin: 0; padding-left: 1.3rem; color: var(--chalk-dim);
+      font-size: 0.9rem; line-height: 1.6; }
+    ol.steps li { margin-bottom: 6px; }
+    ol.steps b { color: var(--chalk); }
+    dl.specs { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px;
+      font-size: 0.85rem; margin: 0; }
+    dl.specs dt { color: var(--sage); font-weight: 500; }
+    dl.specs dd { margin: 0; color: var(--chalk-dim); }
+    .related { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .related a { color: var(--chalk); font-size: 0.8rem; text-decoration: none;
+      border: 1px solid var(--panel-border-light); border-radius: 999px;
+      padding: 6px 14px; background: var(--panel); }
+    .related a:hover { border-color: var(--mustard); color: var(--mustard); }
+    .note { color: var(--chalk-dim); opacity: 0.7; font-size: 0.78rem;
+      margin-top: 24px; line-height: 1.5; }
+    footer { margin-top: 32px; padding-top: 16px;
+      border-top: 1px dashed var(--panel-border-light);
+      color: var(--chalk-dim); opacity: 0.6; font-size: 0.75rem; text-align: center; }
+    .extralink { display: inline-block; margin-top: 10px; color: var(--sage);
+      font-size: 0.88rem; font-weight: 500; text-decoration: none; }
+    .extralink:hover { color: var(--chalk); text-decoration: underline; }
+    .sigil-hero { text-align: center; margin: 4px 0 2px; }
+    .sigil-hero img { width: 88px; height: 88px;
+      filter: drop-shadow(0 0 12px rgba(201,162,39,.5)); }
+    .thumbs { flex-wrap: wrap; }
+    .cardgrid { display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-top: 8px; }
+    @media (max-width: 640px) { .cardgrid { grid-template-columns: repeat(2, 1fr); } }
+    .cardgrid figure { margin: 0; background: var(--panel);
+      border: 1px solid var(--panel-border); border-radius: 0.6rem; overflow: hidden; }
+    .cardgrid img { width: 100%; display: block; aspect-ratio: 5 / 7;
+      object-fit: cover; cursor: pointer; }
+    .cardgrid figcaption { padding: 8px 10px 10px; font-size: 0.78rem;
+      color: var(--chalk-dim); line-height: 1.4; }
+    .cardgrid figcaption b { color: var(--chalk); display: block; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../../shop.html">&larr; back to shop</a>
+    
+    <div class="eyebrow">SHOP &mdash; PLANNERS & ORGANIZERS</div>
+    <h1>The Family Planner</h1>
+    <p class="tagline">Run the whole household from one printable planner — family schedules, meal plans, kids' activities, chore charts.</p>
+
+    <img class="gallery-main" id="mainimg" src="../img/family-planner.jpg" alt="The Family Planner" />
+    <div class="thumbs">
+      <img src="../img/family-planner.jpg" alt="The Family Planner preview 1" class="active" />
+      <img src="../img/family-planner-inside.png" alt="The Family Planner preview 2" class="" />
+      <img src="../img/family-planner-howitworks.png" alt="The Family Planner preview 3" class="" />
+    </div>
+
+    <div class="buyrow">
+      <div class="price">$12</div>
+      <a class="buy" href="https://mattcarstensen.gumroad.com/l/cviva">Buy now</a>
+    </div>
+    
+    
+
+    <h2>What&rsquo;s inside</h2>
+    <ul class="whats">
+      <li>Weekly family schedule spreads</li>
+      <li>Meal planner pages</li>
+      <li>Kids' activity tracker</li>
+      <li>Family chore chart</li>
+      <li>School &amp; appointment tracker</li>
+      <li>Family goals + budget snapshot</li>
+      <li>19-page printable PDF, instant download</li>
+    </ul>
+    <p class="plus">Print the spreads you need and skip the rest — undated pages work year after year.</p>
+
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><b>Buy and download</b> — check out securely, get your PDF instantly.</li>
+      <li><b>Print your pages</b> — US Letter, any home printer; print the spreads you need, skip the rest.</li>
+      <li><b>Plan your week</b> — pen, paper, no app required. Undated pages work year after year.</li>
+    </ol>
+
+    <h2>The details</h2>
+    <dl class="specs">
+      <dt>Format</dt><dd>PDF, US Letter size</dd>
+      <dt>Length</dt><dd>19 pages</dd>
+      <dt>Use</dt><dd>Undated — print and start any week</dd>
+      <dt>Delivery</dt><dd>Instant download after checkout</dd>
+      <dt>License</dt><dd>Yours to reuse forever — please don't resell or redistribute</dd>
+    </dl>
+
+    <h2>You may also like</h2>
+    <div class="related">
+      <a href="family-budget-tracker.html">Family Budget Tracker</a>
+      <a href="adhd-focus-planner.html">ADHD Focus Planner</a>
+      <a href="thanksgiving-ai-prompt-pack.html">Thanksgiving AI Prompt Pack</a>
+    </div>
+
+    <p class="note">Secure checkout via Lemon Squeezy. Digital download &mdash; nothing ships.
+    If a file ever gives you trouble, just reply to your receipt email and we&rsquo;ll sort it out.</p>
+    <footer>mattsapps</footer>
+  </main>
+  <script>
+    const main = document.getElementById('mainimg');
+    document.querySelectorAll('.thumbs img').forEach(t => {
+      t.addEventListener('click', () => {
+        main.src = t.src;
+        document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.cardgrid img').forEach(g => {
+      g.addEventListener('click', () => {
+        main.src = g.src;
+        document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
+        main.scrollIntoView({behavior: 'smooth', block: 'center'});
+      });
+    });
+  </script>
+</body>
+</html>
