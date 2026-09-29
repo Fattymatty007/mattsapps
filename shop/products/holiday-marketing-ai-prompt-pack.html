@@ -73,11 +73,26 @@
     .extralink { display: inline-block; margin-top: 10px; color: var(--sage);
       font-size: 0.88rem; font-weight: 500; text-decoration: none; }
     .extralink:hover { color: var(--chalk); text-decoration: underline; }
+    .sigil-hero { text-align: center; margin: 4px 0 2px; }
+    .sigil-hero img { width: 88px; height: 88px;
+      filter: drop-shadow(0 0 12px rgba(201,162,39,.5)); }
+    .thumbs { flex-wrap: wrap; }
+    .cardgrid { display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-top: 8px; }
+    @media (max-width: 640px) { .cardgrid { grid-template-columns: repeat(2, 1fr); } }
+    .cardgrid figure { margin: 0; background: var(--panel);
+      border: 1px solid var(--panel-border); border-radius: 0.6rem; overflow: hidden; }
+    .cardgrid img { width: 100%; display: block; aspect-ratio: 5 / 7;
+      object-fit: cover; cursor: pointer; }
+    .cardgrid figcaption { padding: 8px 10px 10px; font-size: 0.78rem;
+      color: var(--chalk-dim); line-height: 1.4; }
+    .cardgrid figcaption b { color: var(--chalk); display: block; font-size: 0.82rem; }
   </style>
 </head>
 <body>
   <main>
     <a class="back" href="../../shop.html">&larr; back to shop</a>
+    
     <div class="eyebrow">SHOP &mdash; AI PROMPT PACKS</div>
     <h1>Holiday Marketing AI Prompt Pack</h1>
     <p class="tagline">Q4 is where small businesses make their year — 100 prompts to make AI do the heavy lifting this holiday season.</p>
@@ -90,8 +105,9 @@
 
     <div class="buyrow">
       <div class="price">$12</div>
-      <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/f849d7ae-6367-4806-ac03-270f8ecf1ac9">Buy now</a>
+      <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/e75bbd9a-51f5-453c-b64b-26012cf82eab">Buy now</a>
     </div>
+    
     
 
     <h2>What&rsquo;s inside</h2>
@@ -144,6 +160,13 @@
         main.src = t.src;
         document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
         t.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.cardgrid img').forEach(g => {
+      g.addEventListener('click', () => {
+        main.src = g.src;
+        document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
+        main.scrollIntoView({behavior: 'smooth', block: 'center'});
       });
     });
   </script>

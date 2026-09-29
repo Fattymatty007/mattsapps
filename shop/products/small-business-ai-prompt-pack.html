@@ -73,23 +73,39 @@
     .extralink { display: inline-block; margin-top: 10px; color: var(--sage);
       font-size: 0.88rem; font-weight: 500; text-decoration: none; }
     .extralink:hover { color: var(--chalk); text-decoration: underline; }
+    .sigil-hero { text-align: center; margin: 4px 0 2px; }
+    .sigil-hero img { width: 88px; height: 88px;
+      filter: drop-shadow(0 0 12px rgba(201,162,39,.5)); }
+    .thumbs { flex-wrap: wrap; }
+    .cardgrid { display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-top: 8px; }
+    @media (max-width: 640px) { .cardgrid { grid-template-columns: repeat(2, 1fr); } }
+    .cardgrid figure { margin: 0; background: var(--panel);
+      border: 1px solid var(--panel-border); border-radius: 0.6rem; overflow: hidden; }
+    .cardgrid img { width: 100%; display: block; aspect-ratio: 5 / 7;
+      object-fit: cover; cursor: pointer; }
+    .cardgrid figcaption { padding: 8px 10px 10px; font-size: 0.78rem;
+      color: var(--chalk-dim); line-height: 1.4; }
+    .cardgrid figcaption b { color: var(--chalk); display: block; font-size: 0.82rem; }
   </style>
 </head>
 <body>
   <main>
     <a class="back" href="../../shop.html">&larr; back to shop</a>
+    
     <div class="eyebrow">SHOP &mdash; AI PROMPT PACKS</div>
     <h1>The Small Business AI Prompt Pack</h1>
     <p class="tagline">Your marketing team in a PDF — 100 copy-paste prompts for running and growing a small business.</p>
 
     <img class="gallery-main" id="mainimg" src="../img/small-business.jpg" alt="The Small Business AI Prompt Pack" />
-
+    
 
     <div class="buyrow">
       <div class="price">$12</div>
-      <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/57b4277a-9830-46be-a6a0-7ac3de4bec8a">Buy now</a>
+      <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/6f51b5ed-ec4a-4ca0-80bf-530e0794b7af">Buy now</a>
     </div>
-
+    
+    
 
     <h2>What&rsquo;s inside</h2>
     <ul class="whats">
@@ -141,6 +157,13 @@
         main.src = t.src;
         document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
         t.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.cardgrid img').forEach(g => {
+      g.addEventListener('click', () => {
+        main.src = g.src;
+        document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
+        main.scrollIntoView({behavior: 'smooth', block: 'center'});
       });
     });
   </script>

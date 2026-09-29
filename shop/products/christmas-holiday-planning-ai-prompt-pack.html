@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Christmas &amp;amp; Holiday Planning AI Prompt Pack — mattsapps shop</title>
+  <title>Christmas &amp; Holiday Planning AI Prompt Pack — mattsapps shop</title>
   <meta name="description" content="100 copy-paste AI prompts for Christmas gifts, holiday meals, decorating, budgeting and hosting. Instant PDF download." />
   <link rel="icon" href="data:," />
   <style>
@@ -73,25 +73,41 @@
     .extralink { display: inline-block; margin-top: 10px; color: var(--sage);
       font-size: 0.88rem; font-weight: 500; text-decoration: none; }
     .extralink:hover { color: var(--chalk); text-decoration: underline; }
+    .sigil-hero { text-align: center; margin: 4px 0 2px; }
+    .sigil-hero img { width: 88px; height: 88px;
+      filter: drop-shadow(0 0 12px rgba(201,162,39,.5)); }
+    .thumbs { flex-wrap: wrap; }
+    .cardgrid { display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-top: 8px; }
+    @media (max-width: 640px) { .cardgrid { grid-template-columns: repeat(2, 1fr); } }
+    .cardgrid figure { margin: 0; background: var(--panel);
+      border: 1px solid var(--panel-border); border-radius: 0.6rem; overflow: hidden; }
+    .cardgrid img { width: 100%; display: block; aspect-ratio: 5 / 7;
+      object-fit: cover; cursor: pointer; }
+    .cardgrid figcaption { padding: 8px 10px 10px; font-size: 0.78rem;
+      color: var(--chalk-dim); line-height: 1.4; }
+    .cardgrid figcaption b { color: var(--chalk); display: block; font-size: 0.82rem; }
   </style>
 </head>
 <body>
   <main>
     <a class="back" href="../../shop.html">&larr; back to shop</a>
+    
     <div class="eyebrow">SHOP &mdash; AI PROMPT PACKS</div>
-    <h1>Christmas &amp;amp; Holiday Planning AI Prompt Pack</h1>
+    <h1>Christmas &amp; Holiday Planning AI Prompt Pack</h1>
     <p class="tagline">Christmas, handled — 100 prompts for gifts, meals, decor, budget, and hosting.</p>
 
-    <img class="gallery-main" id="mainimg" src="../img/christmas.jpg" alt="Christmas &amp;amp; Holiday Planning AI Prompt Pack" />
+    <img class="gallery-main" id="mainimg" src="../img/christmas.jpg" alt="Christmas &amp; Holiday Planning AI Prompt Pack" />
     <div class="thumbs">
-      <img src="../img/christmas.jpg" alt="Christmas &amp;amp; Holiday Planning AI Prompt Pack preview 1" class="active" />
-      <img src="../img/christmas-inside.png" alt="Christmas &amp;amp; Holiday Planning AI Prompt Pack preview 2" class="" />
+      <img src="../img/christmas.jpg" alt="Christmas &amp; Holiday Planning AI Prompt Pack preview 1" class="active" />
+      <img src="../img/christmas-inside.png" alt="Christmas &amp; Holiday Planning AI Prompt Pack preview 2" class="" />
     </div>
 
     <div class="buyrow">
       <div class="price">$12</div>
-      <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/3fb7f9e1-616f-4b50-9b69-6d31af58e53e">Buy now</a>
+      <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/f47370db-1ba6-43a6-947a-c4665d6443f4">Buy now</a>
     </div>
+    
     
 
     <h2>What&rsquo;s inside</h2>
@@ -144,6 +160,13 @@
         main.src = t.src;
         document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
         t.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.cardgrid img').forEach(g => {
+      g.addEventListener('click', () => {
+        main.src = g.src;
+        document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
+        main.scrollIntoView({behavior: 'smooth', block: 'center'});
       });
     });
   </script>

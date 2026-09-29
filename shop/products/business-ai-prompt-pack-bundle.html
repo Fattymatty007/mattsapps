@@ -73,11 +73,26 @@
     .extralink { display: inline-block; margin-top: 10px; color: var(--sage);
       font-size: 0.88rem; font-weight: 500; text-decoration: none; }
     .extralink:hover { color: var(--chalk); text-decoration: underline; }
+    .sigil-hero { text-align: center; margin: 4px 0 2px; }
+    .sigil-hero img { width: 88px; height: 88px;
+      filter: drop-shadow(0 0 12px rgba(201,162,39,.5)); }
+    .thumbs { flex-wrap: wrap; }
+    .cardgrid { display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-top: 8px; }
+    @media (max-width: 640px) { .cardgrid { grid-template-columns: repeat(2, 1fr); } }
+    .cardgrid figure { margin: 0; background: var(--panel);
+      border: 1px solid var(--panel-border); border-radius: 0.6rem; overflow: hidden; }
+    .cardgrid img { width: 100%; display: block; aspect-ratio: 5 / 7;
+      object-fit: cover; cursor: pointer; }
+    .cardgrid figcaption { padding: 8px 10px 10px; font-size: 0.78rem;
+      color: var(--chalk-dim); line-height: 1.4; }
+    .cardgrid figcaption b { color: var(--chalk); display: block; font-size: 0.82rem; }
   </style>
 </head>
 <body>
   <main>
     <a class="back" href="../../shop.html">&larr; back to shop</a>
+    
     <div class="eyebrow">SHOP &mdash; BUNDLES</div>
     <h1>The Business AI Prompt Pack Bundle</h1>
     <p class="tagline">200 prompts — the Small Business pack plus the Holiday Marketing pack. Save $7 vs buying separately.</p>
@@ -87,8 +102,9 @@
 
     <div class="buyrow">
       <div class="price">$17</div>
-      <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/02291801-67c9-416e-ab52-cb6af4e3b573">Buy now</a>
+      <a class="buy" href="https://mattsapps.lemonsqueezy.com/checkout/buy/bbd3b313-35b8-43e5-a32c-eaf8a516b861">Buy now</a>
     </div>
+    
     
 
     <h2>What&rsquo;s inside</h2>
@@ -134,6 +150,13 @@
         main.src = t.src;
         document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
         t.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.cardgrid img').forEach(g => {
+      g.addEventListener('click', () => {
+        main.src = g.src;
+        document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
+        main.scrollIntoView({behavior: 'smooth', block: 'center'});
       });
     });
   </script>
