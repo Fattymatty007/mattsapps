@@ -28,122 +28,134 @@
   td.num, th.num { text-align:right; }
   .cols { display:grid; grid-template-columns:1fr; gap:10px; }
   @media (min-width:720px){ .cols { grid-template-columns:1fr 1fr 1fr; } }
-  input[type=text] { width:100%; padding:10px; border-radius:8px; border:1px solid #2a3140; background:#0c0e12; color:var(--text); font-size:.9rem; }
-  button { background:var(--accent); color:#111; border:0; border-radius:8px; padding:10px 16px; font-weight:700; cursor:pointer; font-size:.9rem; }
-  button.ghost { background:transparent; color:var(--muted); border:1px solid #2a3140; }
-  ol.steps li { margin-bottom:8px; line-height:1.5; }
-  code { background:#0c0e12; padding:2px 6px; border-radius:6px; font-size:.85em; }
   .error { background:#3a1414; border:1px solid #7a2a2a; color:#ffb4b4; padding:12px; border-radius:10px; margin-top:12px; }
   .loading { color:var(--muted); padding:24px 0; text-align:center; }
   .foot { margin-top:28px; color:var(--muted); font-size:.8rem; text-align:center; }
   .hidden { display:none; }
-  a { color:var(--teal); }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <h1><span>&#128202;</span> Site Stats <small style="color:var(--muted);font-weight:400;">mattsapps.xyz</small></h1>
-    <button id="forgetBtn" class="ghost hidden">Forget token</button>
   </header>
-  <div id="setup" class="panel hidden">
-    <h2 style="margin-top:0;">One-time setup</h2>
-    <p>This page reads your visitor numbers straight from Cloudflare. Your API token is stored <strong>only in this browser</strong> &mdash; it never leaves your device except to ask Cloudflare for the numbers.</p>
-    <ol class="steps">
-      <li>Open <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">Cloudflare &rarr; My Profile &rarr; API Tokens</a> and tap <strong>Create Token</strong>.</li>
-      <li>Choose <strong>Create Custom Token</strong>. Under <strong>Permissions</strong> add: <code>Account</code> &rarr; <code>Account Analytics</code> &rarr; <code>Read</code>.</li>
-      <li>Under <strong>Account Resources</strong> choose <strong>Include</strong> &rarr; your account, then <strong>Continue to summary &rarr; Create Token</strong>.</li>
-      <li>Copy the token and paste it below.</li>
-    </ol>
-    <input type="text" id="tokenInput" placeholder="Paste Cloudflare API token here" autocomplete="off" spellcheck="false">
-    <p><button id="saveBtn">Save &amp; load stats</button></p>
-    <div id="setupError" class="error hidden"></div>
-  </div>
+
+  <div id="loading" class="loading">Loading stats&hellip;</div>
+
   <div id="dash" class="hidden">
     <div class="cards">
       <div class="card"><div class="label">Today</div><div class="value" id="cToday">&ndash;</div><div class="sub">visits</div></div>
       <div class="card"><div class="label">Last 7 days</div><div class="value" id="cWeek">&ndash;</div><div class="sub">visits</div></div>
       <div class="card"><div class="label">Last 30 days</div><div class="value" id="cMonth">&ndash;</div><div class="sub">visits</div></div>
-      <div class="card"><div class="label">Last 12 months</div><div class="value" id="cYear">&ndash;</div><div class="sub">visits</div></div>
+      <div class="card"><div class="label">Last 90 days</div><div class="value" id="cQtr">&ndash;</div><div class="sub">visits</div></div>
     </div>
+
     <h2>Visits per day &mdash; last 30 days</h2>
     <div class="panel"><canvas id="dailyChart"></canvas></div>
-    <h2>Visits per month &mdash; last 12 months</h2>
+
+    <h2>Visits per month</h2>
     <div class="panel"><canvas id="monthlyChart"></canvas></div>
-    <h2>Visits per year</h2>
-    <div class="panel" id="yearlyList"><div class="loading">Loading&hellip;</div></div>
+
     <h2>Top pages &mdash; last 30 days</h2>
     <div class="panel"><table id="topPages"><thead><tr><th>Page</th><th class="num">Views</th></tr></thead><tbody></tbody></table></div>
+
     <div class="cols">
-      <div><h2>Top referrers</h2><div class="panel"><table id="topRefs"><thead><tr><th>Source</th><th class="num">Views</th></tr></thead><tbody></tbody></table></div></div>
-      <div><h2>Top countries</h2><div class="panel"><table id="topCountries"><thead><tr><th>Country</th><th class="num">Views</th></tr></thead><tbody></tbody></table></div></div>
-      <div><h2>Top devices</h2><div class="panel"><table id="topDevices"><thead><tr><th>Device</th><th class="num">Views</th></tr></thead><tbody></tbody></table></div></div>
+      <div>
+        <h2>Top referrers</h2>
+        <div class="panel"><table id="topRefs"><thead><tr><th>Source</th><th class="num">Views</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div>
+        <h2>Top countries</h2>
+        <div class="panel"><table id="topCountries"><thead><tr><th>Country</th><th class="num">Views</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div>
+        <h2>Top devices</h2>
+        <div class="panel"><table id="topDevices"><thead><tr><th>Device</th><th class="num">Views</th></tr></thead><tbody></tbody></table></div>
+      </div>
     </div>
+
     <div id="dashError" class="error hidden"></div>
-    <div class="foot">Data: Cloudflare Web Analytics (bot traffic excluded) &middot; Visits = sessions, Views = page loads &middot; Dates in UTC</div>
+    <div class="foot">Data: Cloudflare Web Analytics (bot traffic excluded) &middot; Visits = sessions, Views = page loads &middot; Free plan keeps about 90 days of history</div>
   </div>
-  <div id="loading" class="loading hidden">Loading stats&hellip;</div>
 </div>
+
 <script>
-const ACCOUNT_ID = 'c1680405819e8f1976c040af9503e9b2';
-const SITE_TAG    = '93290f33a9d94ecabe00725de034561e';
-const API_URL     = 'https://api.cloudflare.com/client/v4/graphql';
-const TOKEN_KEY   = 'cf_wa_token';
+const WORKER_URL = 'https://mattsapps-stats.warcamera-4k.workers.dev/';
 const $ = id => document.getElementById(id);
-const fmt = n => (n == null ? '–' : Number(n).toLocaleString('en-US'));
-const iso = d => d.toISOString().slice(0, 10);
-const today = new Date();
-const daysAgo = n => { const d = new Date(today); d.setDate(d.getDate() - n); return d; };
-async function gql(query) {
-  const token = localStorage.getItem(TOKEN_KEY);
-  const res = await fetch(API_URL, { method: 'POST', headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' }, body: JSON.stringify({ query }) });
-  if (!res.ok) throw new Error('Cloudflare API returned HTTP ' + res.status);
-  const body = await res.json();
-  if (body.errors && body.errors.length) throw new Error(body.errors[0].message);
-  return body.data.viewer.accounts[0];
+const fmt = n => (n == null ? '\u2013' : Number(n).toLocaleString('en-US'));
+
+function showError(msg) {
+  const el = $('dashError');
+  el.textContent = 'Could not load stats: ' + msg;
+  el.classList.remove('hidden');
 }
-function showError(where, msg) { const el = $(where); el.textContent = 'Could not load stats: ' + msg; el.classList.remove('hidden'); }
-async function diagnose() {
-  const token = localStorage.getItem(TOKEN_KEY);
-  try {
-    const r = await fetch('https://api.cloudflare.com/client/v4/user/tokens/verify', { headers: { 'Authorization': 'Bearer ' + token } });
-    if (r.status === 200) return 'Token is valid, but the stats query failed. Try reloading the page.';
-    if (r.status === 401) return 'The token was rejected (not recognized). Copy a fresh token value from Cloudflare and paste it again.';
-    if (r.status === 403) return 'The token is missing the required permission. It needs Account -> Account Analytics -> Read.';
-    return 'Cloudflare API returned HTTP ' + r.status + '. Try again in a bit.';
-  } catch (e2) { return 'This browser could not reach api.cloudflare.com (connection blocked). Try reloading the page.'; }
-}
+
 async function load() {
-  $('setup').classList.add('hidden'); $('dash').classList.add('hidden'); $('loading').classList.remove('hidden'); $('dashError').classList.add('hidden');
-  const end = iso(today), start365 = iso(daysAgo(365)), start30 = iso(daysAgo(29));
-  const q = `{ viewer { accounts(filter: {accountTag: "${ACCOUNT_ID}"}) { daily: rumPageloadEventsAdaptiveGroups(filter: {siteTag: "${SITE_TAG}", date_geq: "${start365}", date_leq: "${end}"}, limit: 400, orderBy: [date_ASC]) { count sum { visits } dimensions { date } } pages: rumPageloadEventsAdaptiveGroups(filter: {siteTag: "${SITE_TAG}", date_geq: "${start30}", date_leq: "${end}"}, limit: 10, orderBy: [count_DESC]) { count dimensions { requestPath } } refs: rumPageloadEventsAdaptiveGroups(filter: {siteTag: "${SITE_TAG}", date_geq: "${start30}", date_leq: "${end}"}, limit: 10, orderBy: [count_DESC]) { count dimensions { refererHost } } countries: rumPageloadEventsAdaptiveGroups(filter: {siteTag: "${SITE_TAG}", date_geq: "${start30}", date_leq: "${end}"}, limit: 10, orderBy: [count_DESC]) { count dimensions { countryName } } devices: rumPageloadEventsAdaptiveGroups(filter: {siteTag: "${SITE_TAG}", date_geq: "${start30}", date_leq: "${end}"}, limit: 10, orderBy: [count_DESC]) { count dimensions { deviceType } } } } }`;
   try {
-    const a = await gql(q); render(a, end);
-    $('loading').classList.add('hidden'); $('dash').classList.remove('hidden'); $('forgetBtn').classList.remove('hidden');
+    const res = await fetch(WORKER_URL);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    render(data);
+    $('loading').classList.add('hidden');
+    $('dash').classList.remove('hidden');
   } catch (e) {
     $('loading').classList.add('hidden');
-    let msg = e.message; if (e.message === 'Failed to fetch') { msg = await diagnose(); }
-    showError('dashError', msg); $('dash').classList.remove('hidden');
+    $('dash').classList.remove('hidden');
+    showError(e.message || 'connection failed');
   }
 }
-function render(a, endIso) {
-  const byDate = {}; (a.daily || []).forEach(r => { byDate[r.dimensions.date] = r.sum.visits || 0; });
-  const dates = []; for (let i = 364; i >= 0; i--) { const d = iso(daysAgo(i)); dates.push(d); if (!(d in byDate)) byDate[d] = 0; }
-  const sumLast = n => dates.slice(-n).reduce((s, d) => s + byDate[d], 0);
-  $('cToday').textContent = fmt(byDate[endIso] || 0); $('cWeek').textContent = fmt(sumLast(7)); $('cMonth').textContent = fmt(sumLast(30)); $('cYear').textContent = fmt(sumLast(365));
+
+function render(data) {
+  const daily = (data.daily || []).slice().sort((a, b) => a.date < b.date ? -1 : 1);
+  const byDate = {};
+  daily.forEach(r => { byDate[r.date] = r.visits; });
+  const dates = daily.map(r => r.date);
+  const sumLast = n => dates.slice(-n).reduce((s, d) => s + (byDate[d] || 0), 0);
+
+  $('cToday').textContent = fmt(dates.length ? byDate[dates[dates.length - 1]] : 0);
+  $('cWeek').textContent  = fmt(sumLast(7));
+  $('cMonth').textContent = fmt(sumLast(30));
+  $('cQtr').textContent   = fmt(sumLast(90));
+
+  // Daily chart (last 30 days)
   const last30 = dates.slice(-30);
-  new Chart($('dailyChart'), { type: 'bar', data: { labels: last30.map(d => d.slice(5)), datasets: [{ data: last30.map(d => byDate[d]), backgroundColor: '#f5b301', borderRadius: 3 }] }, options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#9aa1b2', maxTicksLimit: 10 } }, y: { beginAtZero: true, ticks: { color: '#9aa1b2' } } } } });
-  const months = [], mLabels = [];
-  for (let i = 11; i >= 0; i--) { const d = new Date(today.getFullYear(), today.getMonth() - i, 1); const key = d.toISOString().slice(0, 7); mLabels.push(d.toLocaleString('en-US', { month: 'short' })); months.push(dates.filter(dt => dt.slice(0, 7) === key).reduce((s, dt) => s + byDate[dt], 0)); }
-  new Chart($('monthlyChart'), { type: 'bar', data: { labels: mLabels, datasets: [{ data: months, backgroundColor: '#2dd4bf', borderRadius: 3 }] }, options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#9aa1b2' } }, y: { beginAtZero: true, ticks: { color: '#9aa1b2' } } } } });
-  const years = {}; dates.forEach(d => { const y = d.slice(0, 4); years[y] = (years[y] || 0) + byDate[d]; });
-  $('yearlyList').innerHTML = Object.keys(years).sort().reverse().map(y => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #242a35;"><span>${y}</span><strong>${fmt(years[y])} visits</strong></div>`).join('');
-  const fill = (id, rows, getLabel) => { $(id).querySelector('tbody').innerHTML = rows.length ? rows.map(r => `<tr><td>${getLabel(r) || '(none)'}</td><td class="num">${fmt(r.count)}</td></tr>`).join('') : '<tr><td colspan="2" style="color:var(--muted)">No data yet</td></tr>'; };
-  fill('topPages', a.pages || [], r => r.dimensions.requestPath); fill('topRefs', a.refs || [], r => r.dimensions.refererHost); fill('topCountries', a.countries || [], r => r.dimensions.countryName); fill('topDevices', a.devices || [], r => r.dimensions.deviceType);
+  if (last30.length) {
+    new Chart($('dailyChart'), {
+      type: 'bar',
+      data: { labels: last30.map(d => d.slice(5)), datasets: [{ data: last30.map(d => byDate[d] || 0), backgroundColor: '#f5b301', borderRadius: 3 }] },
+      options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#9aa1b2', maxTicksLimit: 10 } }, y: { beginAtZero: true, ticks: { color: '#9aa1b2' } } } }
+    });
+  } else {
+    $('dailyChart').parentElement.innerHTML = '<div class="loading">No visitor data yet &mdash; check back tomorrow.</div>';
+  }
+
+  // Monthly aggregation from available daily data
+  const mMap = {};
+  dates.forEach(d => { const k = d.slice(0, 7); mMap[k] = (mMap[k] || 0) + (byDate[d] || 0); });
+  const mKeys = Object.keys(mMap).sort().slice(-6);
+  if (mKeys.length) {
+    new Chart($('monthlyChart'), {
+      type: 'bar',
+      data: { labels: mKeys.map(k => new Date(k + '-02').toLocaleString('en-US', { month: 'short' })), datasets: [{ data: mKeys.map(k => mMap[k]), backgroundColor: '#2dd4bf', borderRadius: 3 }] },
+      options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#9aa1b2' } }, y: { beginAtZero: true, ticks: { color: '#9aa1b2' } } } }
+    });
+  } else {
+    $('monthlyChart').parentElement.innerHTML = '<div class="loading">No visitor data yet.</div>';
+  }
+
+  // Tables
+  const fill = (id, rows) => {
+    $(id).querySelector('tbody').innerHTML = rows.length
+      ? rows.map(r => `<tr><td>${(r.label || '(direct)')}</td><td class="num">${fmt(r.views)}</td></tr>`).join('')
+      : '<tr><td colspan="2" style="color:var(--muted)">No data yet</td></tr>';
+  };
+  fill('topPages', data.pages || []);
+  fill('topRefs', data.referrers || []);
+  fill('topCountries', data.countries || []);
+  fill('topDevices', data.devices || []);
 }
-$('saveBtn').addEventListener('click', () => { const t = $('tokenInput').value.trim(); if (!t) { $('setupError').textContent = 'Paste a token first.'; $('setupError').classList.remove('hidden'); return; } localStorage.setItem(TOKEN_KEY, t); load(); });
-$('forgetBtn').addEventListener('click', () => { localStorage.removeItem(TOKEN_KEY); location.reload(); });
-if (localStorage.getItem(TOKEN_KEY)) { load(); } else { $('setup').classList.remove('hidden'); }
+
+load();
 </script>
 </body>
 </html>
