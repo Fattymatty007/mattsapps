@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mattsapps</title>
+  <title>mattsapps — Apps, AI Prompts, ATTACTIX & FattyMatty 40K</title>
+  <meta name="description" content="The mattsapps hub: handy apps, AI prompt packs & digital products, the ATTACTIX card game, and the FattyMatty 40K Chaos Daemons channel." />
   <link rel="icon" href="data:," />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -17,6 +18,8 @@
       --chalk-dim: #C9C6BA;
       --mustard: #C9A227;
       --sage: #8B9A7D;
+      --crimson: #C0453E;
+      --warp: #9B59D0;
     }
 
     * { box-sizing: border-box; }
@@ -31,48 +34,9 @@
       padding: 32px 16px;
     }
 
-    main {
-      width: 100%;
-      max-width: 28rem;
-    }
+    main { width: 100%; max-width: 44rem; }
 
-    header {
-      margin-bottom: 24px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .shop-btn {
-      display: block;
-      flex-shrink: 0;
-      text-align: center;
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 0.75rem;
-      padding: 10px 14px;
-      text-decoration: none;
-      transition: border-color 0.15s ease;
-    }
-    .shop-btn:hover {
-      border-color: var(--mustard);
-    }
-    .shop-btn-title {
-      display: block;
-      color: var(--chalk);
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .shop-btn-sub {
-      display: block;
-      color: var(--sage);
-      font-size: 0.7rem;
-      margin-top: 2px;
-    }
+    header { text-align: center; margin-bottom: 8px; }
 
     .eyebrow {
       color: var(--mustard);
@@ -86,162 +50,148 @@
       color: var(--chalk);
       font-family: 'Caveat', cursive;
       font-weight: 700;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin: 0;
     }
 
-    .apps {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .tagline {
+      color: var(--chalk-dim);
+      font-size: 0.95rem;
+      margin: 6px auto 26px;
+      max-width: 32rem;
+      line-height: 1.5;
     }
 
-    a.card {
+    .doors {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 640px) {
+      .doors { grid-template-columns: 1fr 1fr; }
+    }
+
+    a.door {
       display: block;
       background: var(--panel);
       border: 1px solid var(--panel-border);
-      border-radius: 0.75rem;
-      padding: 16px;
+      border-radius: 0.9rem;
+      padding: 22px 20px;
       text-decoration: none;
       transition: border-color 0.15s ease, transform 0.15s ease;
     }
+    a.door:hover { transform: translateY(-2px); }
+    a.door.apps:hover { border-color: var(--sage); }
+    a.door.shop:hover { border-color: var(--mustard); }
+    a.door.attactix:hover { border-color: var(--crimson); }
+    a.door.fm40k:hover { border-color: var(--warp); }
 
-    a.card:hover {
-      border-color: var(--panel-border-light);
-      transform: translateY(-1px);
-    }
+    .door-icon { font-size: 1.9rem; margin-bottom: 8px; }
 
-    .card-name {
+    .door-name {
       color: var(--chalk);
       font-family: 'Caveat', cursive;
       font-weight: 700;
-      font-size: 1.75rem;
-      margin-bottom: 2px;
+      font-size: 2rem;
+      line-height: 1.05;
+      margin-bottom: 6px;
     }
 
-    .card-tagline {
-      color: var(--sage);
-      font-size: 0.85rem;
+    .door-tag { color: var(--chalk-dim); font-size: 0.88rem; line-height: 1.5; }
+
+    .door-cta {
+      display: inline-block;
+      margin-top: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--mustard);
     }
+    a.door.apps .door-cta { color: var(--sage); }
+    a.door.attactix .door-cta { color: var(--crimson); }
+    a.door.fm40k .door-cta { color: var(--warp); }
 
     .membership {
       background: var(--panel);
       border: 1px solid var(--mustard);
-      border-radius: 0.75rem;
-      padding: 16px;
-      margin-bottom: 20px;
+      border-radius: 0.9rem;
+      padding: 18px 20px;
+      margin-top: 22px;
     }
-
     .membership-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-top: 10px; flex-wrap: wrap;
     }
-
-    .price {
-      color: var(--chalk);
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-    .price small {
-      color: var(--chalk-dim);
-      font-weight: 400;
-      font-size: 0.75rem;
-    }
-
+    .price { color: var(--chalk); font-weight: 600; font-size: 1.1rem; }
+    .price small { color: var(--chalk-dim); font-weight: 400; font-size: 0.75rem; }
     .join {
-      background: var(--mustard);
-      color: #2B2E27;
-      font-weight: 600;
-      font-size: 0.9rem;
-      border-radius: 0.5rem;
-      padding: 10px 20px;
-      text-decoration: none;
-      display: inline-block;
+      background: var(--mustard); color: #2B2E27; font-weight: 600; font-size: 0.9rem;
+      border-radius: 0.5rem; padding: 10px 20px; text-decoration: none; display: inline-block;
     }
     .join:hover { filter: brightness(1.08); }
 
-    .empty {
-      color: var(--chalk-dim);
-      font-size: 0.85rem;
-      border: 1px dashed var(--panel-border-light);
-      border-radius: 0.75rem;
-      padding: 24px;
-      text-align: center;
-    }
-
     footer {
-      margin-top: 32px;
-      padding-top: 16px;
+      margin-top: 32px; padding-top: 16px;
       border-top: 1px dashed var(--panel-border-light);
-      color: var(--chalk-dim);
-      opacity: 0.6;
-      font-size: 0.75rem;
-      text-align: center;
+      color: var(--chalk-dim); opacity: 0.75; font-size: 0.75rem; text-align: center;
+      line-height: 1.8;
     }
+    footer a { color: var(--sage); text-decoration: none; }
+    footer a:hover { color: var(--chalk); }
   </style>
 </head>
 <body>
   <main>
-    <header class="topbar">
-      <div>
-        <div class="eyebrow">APPS</div>
-        <h1>mattsapps</h1>
-      </div>
-      <a class="shop-btn" href="shop.html">
-        <span class="shop-btn-title">Enter Shop</span>
-        <span class="shop-btn-sub">AI Prompts and other Products</span>
-      </a>
+    <header>
+      <div class="eyebrow">ONE SITE · FOUR WORLDS</div>
+      <h1>mattsapps</h1>
+      <p class="tagline">Handy little apps, copy-paste AI prompts, an original card game, and a Chaos Daemons YouTube channel — all made by Matt. Pick a door.</p>
     </header>
+
+    <div class="doors">
+      <a class="door apps" href="apps.html">
+        <div class="door-icon">📱</div>
+        <div class="door-name">The Apps</div>
+        <div class="door-tag">Dinner Bell (weekly dinner picker + grocery list), In Stock (sales &amp; inventory manager), and WarCamera 4K (scan a mini, get its datasheet).</div>
+        <span class="door-cta">OPEN THE APPS →</span>
+      </a>
+
+      <a class="door shop" href="shop.html">
+        <div class="door-icon">🛒</div>
+        <div class="door-name">AI Prompts &amp; Shop</div>
+        <div class="door-tag">AI prompt packs for small business &amp; everyday life, plus printable planners, budget trackers, and resume templates. Instant PDF download.</div>
+        <span class="door-cta">ENTER THE SHOP →</span>
+      </a>
+
+      <a class="door attactix" href="attactix.html">
+        <div class="door-icon">⚔️</div>
+        <div class="door-name">ATTACTIX</div>
+        <div class="door-tag">Eight cards. Thirty life. Pure mind games. The 2-player simultaneous-reveal combat card game — free rules, $5 print-and-play, and a physical edition.</div>
+        <span class="door-cta">ENTER THE ARENA →</span>
+      </a>
+
+      <a class="door fm40k" href="fattymatty40k.html">
+        <div class="door-icon">🔥</div>
+        <div class="door-name">FattyMatty 40K</div>
+        <div class="door-tag">The Chaos Daemons channel: winning tournament lists every Monday, Daemons news, battle reports &amp; hobby — plus the Daemons stat tracker.</div>
+        <span class="door-cta">JOIN THE LEGION →</span>
+      </a>
+    </div>
+
     <div class="membership">
       <div class="eyebrow">MEMBERSHIP</div>
-      <div class="card-name">All-Access</div>
-      <div class="card-tagline">Every app, every future drop. $1/month, billed annually.</div>
+      <div class="door-name" style="font-size:1.75rem;">All-Access</div>
+      <div class="door-tag">Every app, every future drop. $1/month, billed annually.</div>
       <div class="membership-row">
         <div class="price">$12 <small>/ year</small></div>
         <a class="join" href="https://mattsapps.lemonsqueezy.com/checkout/buy/d3fe252d-c244-4f63-ba41-dbb26c01a5c6">Join</a>
       </div>
     </div>
-    <div class="apps" id="apps"></div>
-    <footer>more apps coming soon<br><a href="/terms.html">Terms of Service</a> · <a href="/privacy.html">Privacy Policy</a></footer>
+
+    <footer>
+      <a href="apps.html">Apps</a> · <a href="shop.html">Shop</a> · <a href="attactix.html">ATTACTIX</a> · <a href="fattymatty40k.html">FattyMatty 40K</a><br />
+      made by Matt · Puyallup, WA
+    </footer>
   </main>
-
-  <script>
-    // Add a new app here to add it to the launcher.
-    const APPS = [
-      {
-        name: 'Dinner Bell',
-        url: 'https://dinner-bell.mattsapps.xyz',
-        tagline: 'Weekly dinner picker + grocery list',
-      },
-      {
-        name: 'In Stock',
-        url: 'https://in-stock.mattsapps.xyz',
-        tagline: 'Sales, inventory, and calendar manager',
-      },
-      {
-        name: 'WarCamera 4k',
-        url: 'https://warcamera.mattsapps.xyz',
-        tagline: 'Scan a mini, get its datasheet',
-      },
-    ];
-
-    const container = document.getElementById('apps');
-    if (APPS.length === 0) {
-      container.innerHTML = '<div class="empty">No apps yet.</div>';
-    } else {
-      for (const app of APPS) {
-        const a = document.createElement('a');
-        a.className = 'card';
-        a.href = app.url;
-        a.innerHTML = `
-          <div class="card-name">${app.name}</div>
-          <div class="card-tagline">${app.tagline}</div>
-        `;
-        container.appendChild(a);
-      }
-    }
-  </script>
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fa6ba94cca0d46ab85e14e4f3a91dbd0"}'></script><!-- End Cloudflare Web Analytics --> </body>
+</body>
 </html>

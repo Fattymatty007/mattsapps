@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FattyMatty 40K — Chaos Daemons Lists, News & Battle Reports</title>
+  <meta name="description" content="FattyMatty 40K is the Chaos Daemons channel: Demonic Mondays tournament list breakdowns, Daemonic Dispatch news, Weekend Warptide battle reports & hobby, and the Daemons stat tracker." />
+  <link rel="icon" href="data:," />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #23202B; --panel: #2E2A3A; --panel-border: #453F59; --panel-border-light: #5A5375;
+      --chalk: #F2EFE6; --chalk-dim: #C9C4D6; --mustard: #C9A227; --sage: #8B9A7D;
+      --warp: #9B59D0; --news: #C0453E; --teal: #3E8E87;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); font-family: 'Inter', sans-serif; display: flex; justify-content: center; padding: 32px 16px; }
+    main { width: 100%; max-width: 40rem; }
+    .back { display: inline-block; color: var(--sage); font-size: 0.85rem; text-decoration: none; margin-bottom: 20px; }
+    .back:hover { color: var(--chalk); }
+    .eyebrow { color: var(--warp); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; margin-bottom: 6px; }
+    h1 { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 2.8rem; margin: 0 0 6px; text-align: center; }
+    h2 { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.9rem; margin: 30px 0 8px; }
+    .sub { color: var(--chalk-dim); font-size: 0.95rem; line-height: 1.6; text-align: center; max-width: 34rem; margin: 0 auto 8px; }
+    p { color: var(--chalk-dim); font-size: 0.92rem; line-height: 1.65; }
+    p b { color: var(--chalk); }
+
+    .links { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
+    @media (min-width: 640px) { .links { grid-template-columns: 1fr 1fr; } }
+    a.link-card { display: block; background: var(--panel); border: 1px solid var(--panel-border); border-radius: 0.9rem; padding: 18px; text-decoration: none; transition: border-color 0.15s ease, transform 0.15s ease; }
+    a.link-card:hover { transform: translateY(-2px); border-color: var(--panel-border-light); }
+    a.link-card.yt:hover { border-color: #FF4444; }
+    a.link-card.tracker:hover { border-color: var(--warp); }
+    a.link-card.discord:hover { border-color: #5865F2; }
+    a.link-card.fb:hover { border-color: #1877F2; }
+    .link-icon { font-size: 1.6rem; margin-bottom: 6px; }
+    .link-name { color: var(--chalk); font-weight: 600; font-size: 1.05rem; }
+    .link-tag { color: var(--chalk-dim); font-size: 0.85rem; line-height: 1.5; margin-top: 3px; }
+
+    .series { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 640px) { .series { grid-template-columns: 1fr 1fr 1fr; } }
+    .show { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 0.9rem; padding: 16px; }
+    .show .when { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; }
+    .show.mondays .when { color: var(--warp); } .show.dispatch .when { color: var(--news); } .show.warptide .when { color: var(--teal); }
+    .show .n { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin: 4px 0; }
+    .show p { margin: 0; font-size: 0.84rem; }
+
+    .social-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .social-row a, .social-row span.soon {
+      color: var(--chalk); font-size: 0.82rem; font-weight: 500; text-decoration: none;
+      border: 1px solid var(--panel-border-light); border-radius: 999px; padding: 7px 15px; background: var(--panel);
+    }
+    .social-row a:hover { border-color: var(--warp); }
+    .social-row span.soon { color: var(--chalk-dim); opacity: 0.55; border-style: dashed; }
+
+    .snap { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .stat { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 0.75rem; padding: 12px 16px; min-width: 130px; }
+    .stat b { color: var(--chalk); font-size: 1.35rem; display: block; }
+    .stat span { color: var(--chalk-dim); font-size: 0.75rem; }
+
+    footer { margin-top: 32px; padding-top: 16px; border-top: 1px dashed var(--panel-border-light); color: var(--chalk-dim); opacity: 0.75; font-size: 0.75rem; text-align: center; line-height: 1.8; }
+    footer a { color: var(--sage); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">← mattsapps hub</a>
+
+    <div class="eyebrow" style="text-align:center;">CHAOS DAEMONS · WARHAMMER 40K</div>
+    <h1>FattyMatty 40K</h1>
+    <p class="sub">The Chaos Daemons channel. Winning tournament lists broken down every Monday, Daemons news when it drops, and battle reports, painting &amp; hobby on the weekend slot — all killer, no filler, straight from the Warp.</p>
+
+    <div class="links">
+      <a class="link-card yt" href="https://www.youtube.com/@FattyMatty40K">
+        <div class="link-icon">▶️</div>
+        <div class="link-name">Watch on YouTube</div>
+        <div class="link-tag">@FattyMatty40K — subscribe so the Warp knows your name. New Demonic Mondays episode every week.</div>
+      </a>
+      <a class="link-card tracker" href="daemons-tracker.html">
+        <div class="link-icon">📊</div>
+        <div class="link-name">Daemons Stat Tracker</div>
+        <div class="link-tag">Every featured tournament list, the faction win-rate snapshot, and the X-1 finishes — updated every Monday.</div>
+      </a>
+      <a class="link-card discord" href="https://discord.gg/ye8cTTbxpe">
+        <div class="link-icon">💬</div>
+        <div class="link-name">Eternal Warriors Discord</div>
+        <div class="link-tag">The club server: list talk, hobby channels, game days, and the biweekly hobby spotlight.</div>
+      </a>
+      <!-- FB GROUP: href below is a Facebook search for the group (direct group URL not on file).
+           Swap with the real link: open the group in the FB app → Share → Copy link. -->
+      <a class="link-card fb" href="https://www.facebook.com/search/groups/?q=Eternal%20Warriors%20Gaming">
+        <div class="link-icon">👥</div>
+        <div class="link-name">Eternal Warriors Gaming — Facebook Group</div>
+        <div class="link-tag">The club's Facebook home: hobby spotlight posts, event chatter, and new-member welcomes.</div>
+      </a>
+    </div>
+
+    <h2>The shows</h2>
+    <div class="series">
+      <div class="show mondays">
+        <div class="when">MONDAYS</div>
+        <div class="n">Demonic Mondays</div>
+        <p>The flagship: the weekend's winning Chaos Daemons tournament lists, broken down list-by-list with the data behind them.</p>
+      </div>
+      <div class="show dispatch">
+        <div class="when">MIDWEEK · WHEN THERE'S NEWS</div>
+        <div class="n">Daemonic Dispatch</div>
+        <p>Short and fast: Warhammer Community news, dataslates, and codex changes — filtered for what matters to Daemons &amp; Chaos.</p>
+      </div>
+      <div class="show warptide">
+        <div class="when">THE WILDCARD SLOT</div>
+        <div class="n">Weekend Warptide</div>
+        <p>Random by design: battle reports from Matt's own games, painting &amp; hobby builds, and list experiments gone right (or gloriously wrong).</p>
+      </div>
+    </div>
+
+    <h2>Daemons right now</h2>
+    <div class="snap">
+      <div class="stat"><b>42.1%</b><span>Win rate · Oct 15–20 weekend</span></div>
+      <div class="stat"><b>52.6%</b><span>Best pairing: Cavalcade + Shadow Legion</span></div>
+      <div class="stat"><b>1 win · 6 X-1</b><span>Event results in the window</span></div>
+    </div>
+    <p>Full numbers, every featured list, and the receipts: <a href="daemons-tracker.html" style="color:var(--warp);">the Daemons Stat Tracker →</a></p>
+
+    <h2>Follow along</h2>
+    <div class="social-row">
+      <a href="https://www.youtube.com/@FattyMatty40K">YouTube</a>
+      <a href="https://x.com/Fattymatty007">X — @Fattymatty007</a>
+      <a href="https://discord.gg/ye8cTTbxpe">Discord</a>
+      <span class="soon">TikTok — coming soon</span>
+      <span class="soon">Instagram — coming soon</span>
+    </div>
+
+    <h2>More from Matt</h2>
+    <p>FattyMatty also built <b>WarCamera 4K</b> — scan a mini, get its datasheet — over in <a href="apps.html" style="color:var(--sage);">the apps</a>, and <b>ATTACTIX</b>, the 8-card mind-game duel, over in <a href="attactix.html" style="color:var(--sage);">the arena</a>.</p>
+
+    <footer>
+      <a href="index.html">Hub</a> · <a href="apps.html">Apps</a> · <a href="shop.html">Shop</a> · <a href="attactix.html">ATTACTIX</a><br />
+      FattyMatty 40K is an unofficial, fan-made channel and is not affiliated with Games Workshop. Warhammer 40,000 and all associated names are trademarks of Games Workshop Ltd.
+    </footer>
+  </main>
+</body>
+</html>

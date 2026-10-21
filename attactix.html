@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATTACTIX — Eight Cards. Thirty Life. Pure Mind Games.</title>
+  <meta name="description" content="ATTACTIX is a 2-player simultaneous-reveal combat card game: 8 cards, 30 life, no mercy. Read the rules free, get the $5 print-and-play, or order the physical edition." />
+  <link rel="icon" href="data:," />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #2B2E27; --panel: #34372E; --panel-border: #454A3D; --panel-border-light: #565C4B;
+      --chalk: #F2EFE6; --chalk-dim: #C9C6BA; --mustard: #C9A227; --sage: #8B9A7D;
+      --crimson: #C0453E; --teal: #3E8E87;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); font-family: 'Inter', sans-serif; display: flex; justify-content: center; padding: 32px 16px; }
+    main { width: 100%; max-width: 40rem; }
+    .back { display: inline-block; color: var(--sage); font-size: 0.85rem; text-decoration: none; margin-bottom: 20px; }
+    .back:hover { color: var(--chalk); }
+    .hero { text-align: center; margin-bottom: 26px; }
+    .hero img.logo { max-width: 340px; width: 80%; height: auto; }
+    .eyebrow { color: var(--crimson); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; margin-bottom: 6px; }
+    h1 { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 2.6rem; margin: 0 0 6px; text-align: center; }
+    h2 { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.9rem; margin: 30px 0 8px; }
+    .tagline { color: var(--chalk); font-size: 1.05rem; font-weight: 600; text-align: center; margin: 4px 0; }
+    .sub { color: var(--chalk-dim); font-size: 0.92rem; line-height: 1.6; text-align: center; max-width: 34rem; margin: 0 auto; }
+    p { color: var(--chalk-dim); font-size: 0.92rem; line-height: 1.65; }
+    p b, li b { color: var(--chalk); }
+    ol, ul { color: var(--chalk-dim); font-size: 0.92rem; line-height: 1.65; padding-left: 1.3rem; }
+    .do { color: var(--sage); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; }
+
+    .buys { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
+    @media (min-width: 640px) { .buys { grid-template-columns: 1fr 1fr 1fr; } }
+    .buy { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 0.9rem; padding: 18px 16px; text-align: center; }
+    .buy.free { border-color: var(--teal); }
+    .buy.digital { border-color: var(--mustard); }
+    .buy.physical { border-color: var(--crimson); }
+    .buy-name { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.55rem; line-height: 1.1; }
+    .buy-price { color: var(--chalk); font-weight: 600; font-size: 1.15rem; margin: 6px 0 4px; }
+    .buy-tag { color: var(--chalk-dim); font-size: 0.82rem; line-height: 1.5; min-height: 3.6em; }
+    .btn { display: inline-block; margin-top: 10px; font-weight: 600; font-size: 0.9rem; border-radius: 0.5rem; padding: 10px 18px; text-decoration: none; color: #2B2E27; }
+    .btn.teal { background: var(--teal); color: #fff; }
+    .btn.mustard { background: var(--mustard); }
+    .btn.crimson { background: var(--crimson); color: #fff; }
+    .btn:hover { filter: brightness(1.1); }
+
+    .cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 640px) { .cards { grid-template-columns: 1fr 1fr; } }
+    .mini { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 0.75rem; padding: 12px 14px; }
+    .mini .n { color: var(--chalk); font-weight: 600; font-size: 0.95rem; }
+    .mini .t { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; margin-left: 6px; }
+    .mini .t.atk { color: var(--crimson); } .mini .t.tac { color: var(--teal); }
+    .mini p { margin: 4px 0 0; font-size: 0.85rem; }
+
+    .note { background: var(--panel); border-left: 4px solid var(--mustard); border-radius: 0.75rem; padding: 14px 16px; margin-top: 14px; }
+    .note p { margin: 0; }
+    footer { margin-top: 32px; padding-top: 16px; border-top: 1px dashed var(--panel-border-light); color: var(--chalk-dim); opacity: 0.75; font-size: 0.75rem; text-align: center; line-height: 1.8; }
+    footer a { color: var(--sage); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">← mattsapps hub</a>
+
+    <div class="hero">
+      <img class="logo" src="https://mattsapps.xyz/attactix/logo.png" alt="ATTACTIX" />
+      <p class="tagline">Eight cards. Thirty life. Pure mind games.</p>
+      <p class="sub">A 2-player simultaneous-reveal combat card game. Pick in secret, reveal together, and bury your rival. No decks to build, no luck of the draw — both players hold the exact same eight cards. The only difference is you.</p>
+    </div>
+
+    <div class="buys">
+      <div class="buy free">
+        <div class="eyebrow">START HERE</div>
+        <div class="buy-name">Free Rules</div>
+        <div class="buy-price">Free forever</div>
+        <div class="buy-tag">The complete official rules — every card, every interaction, the quick start. Read them in five minutes.</div>
+        <a class="btn teal" href="https://mattsapps.xyz/attactix">Read the Rules</a>
+      </div>
+      <div class="buy digital">
+        <div class="eyebrow">PLAY TONIGHT</div>
+        <div class="buy-name">Print-and-Play</div>
+        <div class="buy-price">$5</div>
+        <div class="buy-tag">The full game as a PDF: true-size 2.5×3.5″ cards, backs included. Print the sheet twice — one set per player.</div>
+        <a class="btn mustard" href="shop/products/attactix-print-and-play.html">Get the PDF</a>
+      </div>
+      <div class="buy physical">
+        <div class="eyebrow">THE REAL DECK</div>
+        <div class="buy-name">Physical Edition</div>
+        <div class="buy-price">$19.99</div>
+        <div class="buy-tag">The printed game from The Game Crafter — 18 cards (two full sets) in a tuck box. No printer required.</div>
+        <a class="btn crimson" href="https://www.thegamecrafter.com/games/attactix">Buy Physical</a>
+      </div>
+    </div>
+
+    <h2>Learn it in 60 seconds</h2>
+    <ol>
+      <li><b>Setup:</b> 30 life each. Both players hold the same 8 cards.</li>
+      <li><b>Each turn:</b> secretly pick 1 card, then reveal together.</li>
+      <li><b>Combat:</b> attacks roll D6s. <b>Swift Strike</b> hits first. <b>Block</b> stops all damage. <b>Parry</b> steals a die and deals its face value back.</li>
+      <li><b>Cycles:</b> played cards stay face-up where both players can see them. When all 8 are spent, take them back — life carries over.</li>
+      <li><b>Winning:</b> drop your rival to 0 life. Both hit 0 on the same turn: draw.</li>
+    </ol>
+
+    <h2>The eight cards</h2>
+    <div class="cards">
+      <div class="mini"><span class="n">Overhead Swing</span><span class="t atk">ATTACK</span><p>Roll 2D6, discard the lowest, deal the rest. The reliable bruiser.</p></div>
+      <div class="mini"><span class="n">Swift Strike</span><span class="t atk">ATTACK</span><p>Roll 1D6 and deal it <i>before everything else</i>. Can end a rival before they heal.</p></div>
+      <div class="mini"><span class="n">Final Assault</span><span class="t atk">ATTACK</span><p>Roll 1D6 and triple it. Stack it with Power Charge for the telegraphed one-shot.</p></div>
+      <div class="mini"><span class="n">Block</span><span class="t tac">TACTIC</span><p>Prevent <b>all</b> damage this turn. The only clean answer to a charged-up finisher.</p></div>
+      <div class="mini"><span class="n">Recover</span><span class="t tac">TACTIC</span><p>Roll 2D6, gain that much life — even past 30. Greedy, until a Swift Strike lands first.</p></div>
+      <div class="mini"><span class="n">Power Charge</span><span class="t tac">TACTIC</span><p>Bank a D6 in front of you. It rides your next attack — mandatory, even into a Block. They stack.</p></div>
+      <div class="mini"><span class="n">Copy Cat</span><span class="t tac">TACTIC</span><p>Become whatever your rival played — timing included. Double Copy Cat: nothing happens.</p></div>
+      <div class="mini"><span class="n">Parry</span><span class="t tac">TACTIC</span><p>Steal one D6 from their attack roll, deal its face value back, remove it. Catches everything — even Swift Strike.</p></div>
+    </div>
+
+    <h2>Why it works</h2>
+    <p>ATTACTIX is a reading game, not a luck game. There are no hidden cards — every charge is banked in public, every discard sits face-up, so you always know exactly which answers your rival still holds. The famous "unfair" combo — Final Assault stacked with Power Charges — takes two dead turns to build, happens in plain sight, and dies to a single Block. If you walk into it, you earned it.</p>
+    <p>It's also a game with nothing to buy. One deck is the whole game: no boosters, no meta decks, no second edition invalidating your cards. Learn it in a minute, spend a year out-reading your friends.</p>
+
+    <div class="note">
+      <p><b>Tournaments &amp; local shops:</b> ATTACTIX is rolling out to local game shops, with hosted tournaments and cash prizes. Ask your FLGS about stocking it — or start with the $5 print-and-play and run your own.</p>
+    </div>
+
+    <h2>Also from mattsapps</h2>
+    <p>Try <a href="fattymatty40k.html" style="color:var(--sage);">FattyMatty 40K</a> for Chaos Daemons tournament coverage, or browse <a href="shop.html" style="color:var(--sage);">the shop</a> for AI prompt packs and more.</p>
+
+    <footer>
+      <a href="index.html">Hub</a> · <a href="apps.html">Apps</a> · <a href="shop.html">Shop</a> · <a href="fattymatty40k.html">FattyMatty 40K</a><br />
+      ATTACTIX © Matt Carstensen · Reveal the Winner
+    </footer>
+  </main>
+</body>
+</html>

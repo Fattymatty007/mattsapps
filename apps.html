@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Apps — mattsapps</title>
+  <link rel="icon" href="data:," />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #2B2E27;
+      --panel: #34372E;
+      --panel-border: #454A3D;
+      --panel-border-light: #565C4B;
+      --chalk: #F2EFE6;
+      --chalk-dim: #C9C6BA;
+      --mustard: #C9A227;
+      --sage: #8B9A7D;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    main {
+      width: 100%;
+      max-width: 28rem;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .shop-btn {
+      display: block;
+      flex-shrink: 0;
+      text-align: center;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.75rem;
+      padding: 10px 14px;
+      text-decoration: none;
+      transition: border-color 0.15s ease;
+    }
+    .shop-btn:hover {
+      border-color: var(--mustard);
+    }
+    .shop-btn-title {
+      display: block;
+      color: var(--chalk);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .shop-btn-sub {
+      display: block;
+      color: var(--sage);
+      font-size: 0.7rem;
+      margin-top: 2px;
+    }
+
+    .eyebrow {
+      color: var(--mustard);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      color: var(--chalk);
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    .apps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    a.card {
+      display: block;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.75rem;
+      padding: 16px;
+      text-decoration: none;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    a.card:hover {
+      border-color: var(--panel-border-light);
+      transform: translateY(-1px);
+    }
+
+    .card-name {
+      color: var(--chalk);
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 1.75rem;
+      margin-bottom: 2px;
+    }
+
+    .card-tagline {
+      color: var(--sage);
+      font-size: 0.85rem;
+    }
+
+    .membership {
+      background: var(--panel);
+      border: 1px solid var(--mustard);
+      border-radius: 0.75rem;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .membership-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .price {
+      color: var(--chalk);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .price small {
+      color: var(--chalk-dim);
+      font-weight: 400;
+      font-size: 0.75rem;
+    }
+
+    .join {
+      background: var(--mustard);
+      color: #2B2E27;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 0.5rem;
+      padding: 10px 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .join:hover { filter: brightness(1.08); }
+
+    .empty {
+      color: var(--chalk-dim);
+      font-size: 0.85rem;
+      border: 1px dashed var(--panel-border-light);
+      border-radius: 0.75rem;
+      padding: 24px;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--panel-border-light);
+      color: var(--chalk-dim);
+      opacity: 0.6;
+      font-size: 0.75rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="topbar">
+      <div>
+        <div class="eyebrow"><a href="index.html" style="color:var(--sage);text-decoration:none;">← MATTSAPPS HUB</a> · APPS</div>
+        <h1>mattsapps</h1>
+      </div>
+      <a class="shop-btn" href="shop.html">
+        <span class="shop-btn-title">Enter Shop</span>
+        <span class="shop-btn-sub">AI Prompts and other Products</span>
+      </a>
+    </header>
+    <div class="membership">
+      <div class="eyebrow">MEMBERSHIP</div>
+      <div class="card-name">All-Access</div>
+      <div class="card-tagline">Every app, every future drop. $1/month, billed annually.</div>
+      <div class="membership-row">
+        <div class="price">$12 <small>/ year</small></div>
+        <a class="join" href="https://mattsapps.lemonsqueezy.com/checkout/buy/d3fe252d-c244-4f63-ba41-dbb26c01a5c6">Join</a>
+      </div>
+    </div>
+    <div class="apps" id="apps"></div>
+    <footer>more apps coming soon</footer>
+  </main>
+
+  <script>
+    // Add a new app here to add it to the launcher.
+    const APPS = [
+      {
+        name: 'Dinner Bell',
+        url: 'https://dinner-bell.mattsapps.xyz',
+        tagline: 'Weekly dinner picker + grocery list',
+      },
+      {
+        name: 'In Stock',
+        url: 'https://in-stock.mattsapps.xyz',
+        tagline: 'Sales, inventory, and calendar manager',
+      },
+      {
+        name: 'WarCamera 4k',
+        url: 'https://warcamera.mattsapps.xyz',
+        tagline: 'Scan a mini, get its datasheet',
+      },
+    ];
+
+    const container = document.getElementById('apps');
+    if (APPS.length === 0) {
+      container.innerHTML = '<div class="empty">No apps yet.</div>';
+    } else {
+      for (const app of APPS) {
+        const a = document.createElement('a');
+        a.className = 'card';
+        a.href = app.url;
+        a.innerHTML = `
+          <div class="card-name">${app.name}</div>
+          <div class="card-tagline">${app.tagline}</div>
+        `;
+        container.appendChild(a);
+      }
+    }
+  </script>
+</body>
+</html>
