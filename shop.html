@@ -577,3 +577,17 @@ GAMES.push({
 document.getElementById('games').innerHTML = '';
 render(GAMES, 'games');
 </script>
+<!-- Game Master's Expansion: add the expansion card to the Games section -->
+<script>
+GAMES.push({
+  name: 'ATTACTIX RPG — Game Master\'s Expansion',
+  tag: 'A 45-card GM toolkit: bestiary, bosses, rooms, a gold-priced shop shelf. Requires the core game.',
+  price: '$9.99',
+  img: 'shop/img/attactix.jpg',
+  link: 'shop/products/attactix-rpg-game-masters-expansion.html',
+  buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/4004a20e-ef59-47d7-8cae-66785e230877',
+  extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' }
+});
+document.getElementById('games').innerHTML = '';
+render(GAMES, 'games');
+</script>
