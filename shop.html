@@ -563,3 +563,17 @@
   </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fa6ba94cca0d46ab85e14e4f3a91dbd0"}'></script><!-- End Cloudflare Web Analytics --> </body>
 </html>
+<!-- Sunken Cellar expansion: add the expansion card to the Games section -->
+<script>
+GAMES.push({
+  name: 'ATTACTIX RPG — The Sunken Cellar Expansion',
+  tag: 'The duel becomes an adventure: classes, levels, loot, and a 3-room quest. Requires the core game.',
+  price: '$7.99',
+  img: 'shop/img/attactix.jpg',
+  link: 'shop/products/attactix-rpg-sunken-cellar.html',
+  buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/e428a376-7079-43da-8928-570bfeed3306',
+  extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' }
+});
+document.getElementById('games').innerHTML = '';
+render(GAMES, 'games');
+</script>
