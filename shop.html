@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shop — mattsapps</title>
-  <link rel="icon" href="data:," />
+  <meta name="description" content="Shop mattsapps: copy-paste AI prompt packs, printable budget trackers and planners, fillable resume templates, and the ATTACTIX card game. Instant PDF download." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -221,6 +222,17 @@
     }
     .buy:hover { filter: brightness(1.08); }
 
+    .product.soon:hover { border-color: var(--panel-border); }
+    .product.soon img { opacity: 0.6; }
+    .soon-badge {
+      color: var(--chalk-dim);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px dashed var(--panel-border-light);
+      border-radius: 0.5rem;
+      padding: 7px 12px;
+    }
+
     .product-wrap { display: flex; flex-direction: column; }
 
     .rules-under {
@@ -251,6 +263,7 @@
       font-size: 0.75rem;
       text-align: center;
     }
+    footer a { color: var(--sage); text-decoration: none; }
   </style>
 </head>
 <body>
@@ -303,9 +316,9 @@
     <h2 class="section-title" id="games-section">Games</h2>
     <div class="products" id="games"></div>
 
-    <p class="note">Secure checkout via Lemon Squeezy, Gumroad, or Etsy. Digital downloads — nothing ships. If a file ever gives you trouble, just reply to your receipt email and we'll sort it out.</p>
+    <p class="note">Secure checkout via Lemon Squeezy or Gumroad, depending on the product. Digital downloads — nothing ships. If a file ever gives you trouble, just reply to your receipt email and we'll sort it out.</p>
 
-    <footer>mattsapps</footer>
+    <footer>mattsapps &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></footer>
   </main>
 
   <script>
@@ -332,14 +345,11 @@
     const GAMES = [
       {
         name: 'ATTACTIX',
-      tag: 'Physical edition — printed & shipped by The Game Crafter',
-      price: '$19.99',
-      img: 'shop/img/attactix.jpg',
-      link: 'shop/products/attactix-print-and-play.html',
-      buy: 'https://www.thegamecrafter.com/games/attactix',
-      extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
-    },
-      
+        tag: 'Physical edition — printed & shipped by The Game Crafter. Coming soon',
+        price: '$19.99',
+        img: 'shop/img/attactix.jpg',
+        comingSoon: true, // not on sale yet — no product link or buy button until The Game Crafter proofs are approved
+      },
       {
         name: 'ATTACTIX',
         tag: 'Print-and-play edition — the 2-player combat card game. 9 true-size cards, print twice and play tonight',
@@ -347,6 +357,42 @@
         img: 'shop/img/attactix.jpg',
         link: 'shop/products/attactix-print-and-play.html',
         buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/fb991366-ef3c-461a-bd79-8dd27fd15138',
+        extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
+      },
+      {
+        name: 'ATTACTIX RPG — The Sunken Cellar Expansion',
+        tag: 'The duel becomes an adventure: classes, levels, loot, and a 3-room quest. Requires the core game.',
+        price: '$7.99',
+        img: 'shop/img/attactix.jpg',
+        link: 'shop/products/attactix-rpg-sunken-cellar.html',
+        buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/e428a376-7079-43da-8928-570bfeed3306',
+        extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
+      },
+      {
+        name: 'ATTACTIX RPG — Game Master\'s Expansion',
+        tag: 'A 45-card GM toolkit: bestiary, bosses, rooms, a gold-priced shop shelf. Requires the core game.',
+        price: '$9.99',
+        img: 'shop/img/attactix.jpg',
+        link: 'shop/products/attactix-rpg-game-masters-expansion.html',
+        buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/4004a20e-ef59-47d7-8cae-66785e230877',
+        extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
+      },
+      {
+        name: 'ATTACTIX Complete Bundle',
+        tag: 'Core game + The Sunken Cellar expansion in one bundle. Save $2 vs buying separately.',
+        price: '$10.99',
+        img: 'shop/img/attactix.jpg',
+        link: 'shop/products/attactix-complete-bundle.html',
+        buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/6e9289b1-d0f1-4489-91a7-2a2fb893e767',
+        extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
+      },
+      {
+        name: 'ATTACTIX Everything Bundle',
+        tag: 'Core game + Sunken Cellar + Game Master\'s Expansion in one bundle. Save $4.99 vs buying separately.',
+        price: '$17.99',
+        img: 'shop/img/attactix.jpg',
+        link: 'shop/products/attactix-everything-bundle.html',
+        buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/d26ab7a1-32eb-4b41-b03f-0880b5d6fb70',
         extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' },
       },
     ];
@@ -542,15 +588,15 @@
         wrap.className = 'product-wrap';
         if (p.id) wrap.id = p.id;
         wrap.innerHTML = `
-          <div class="product">
-          <a class="stretched-link" href="${p.link}" aria-label="View details: ${p.name}"></a>
+          <div class="product${p.comingSoon ? ' soon' : ''}">
+          ${p.comingSoon ? '' : `<a class="stretched-link" href="${p.link}" aria-label="View details: ${p.name}"></a>`}
           <img src="${p.img}" alt="${p.name}" loading="lazy" />
           <div class="product-body">
             <div class="product-name">${p.name}</div>
             <div class="product-tag">${p.tag}</div>
             <div class="product-row">
               <div class="price">${p.price}</div>
-              <a class="buy" href="${p.buy}">Buy</a>
+              ${p.comingSoon ? '<span class="soon-badge">Coming soon</span>' : `<a class="buy" href="${p.buy}">Buy</a>`}
             </div>
           </div>
           </div>
@@ -569,59 +615,3 @@
   </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fa6ba94cca0d46ab85e14e4f3a91dbd0"}'></script><!-- End Cloudflare Web Analytics --> </body>
 </html>
-<!-- Sunken Cellar expansion: add the expansion card to the Games section -->
-<script>
-GAMES.push({
-  name: 'ATTACTIX RPG — The Sunken Cellar Expansion',
-  tag: 'The duel becomes an adventure: classes, levels, loot, and a 3-room quest. Requires the core game.',
-  price: '$7.99',
-  img: 'shop/img/attactix.jpg',
-  link: 'shop/products/attactix-rpg-sunken-cellar.html',
-  buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/e428a376-7079-43da-8928-570bfeed3306',
-  extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' }
-});
-document.getElementById('games').innerHTML = '';
-render(GAMES, 'games');
-</script>
-<!-- Game Master's Expansion: add the expansion card to the Games section -->
-<script>
-GAMES.push({
-  name: 'ATTACTIX RPG — Game Master\'s Expansion',
-  tag: 'A 45-card GM toolkit: bestiary, bosses, rooms, a gold-priced shop shelf. Requires the core game.',
-  price: '$9.99',
-  img: 'shop/img/attactix.jpg',
-  link: 'shop/products/attactix-rpg-game-masters-expansion.html',
-  buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/4004a20e-ef59-47d7-8cae-66785e230877',
-  extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix' }
-});
-document.getElementById('games').innerHTML = '';
-render(GAMES, 'games');
-</script>
-<!-- Complete Bundle: add the bundle card to the Games section -->
-<script>
-GAMES.push({
-  name: 'ATTACTIX Complete Bundle',
-  tag: 'Core game + The Sunken Cellar expansion in one bundle. Save $2 vs buying separately.',
-  price: '$10.99',
-  img: 'shop/img/attactix.jpg',
-  link: 'shop/products/attactix-complete-bundle.html',
-  buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/6e9289b1-d0f1-4489-91a7-2a2fb893e767',
-  extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix'}
-});
-document.getElementById('games').innerHTML = '';
-render(GAMES, 'games');
-</script>
-<!-- Everything Bundle: add the bundle card to the Games section -->
-<script>
-GAMES.push({
-  name: 'ATTACTIX Everything Bundle',
-  tag: 'Core game + Sunken Cellar + Game Master\'s Expansion in one bundle. Save $4.99 vs buying separately.',
-  price: '$17.99',
-  img: 'shop/img/attactix.jpg',
-  link: 'shop/products/attactix-everything-bundle.html',
-  buy: 'https://mattsapps.lemonsqueezy.com/checkout/buy/d26ab7a1-32eb-4b41-b03f-0880b5d6fb70',
-  extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix'}
-});
-document.getElementById('games').innerHTML = '';
-render(GAMES, 'games');
-</script>
