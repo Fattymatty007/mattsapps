@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plaguefather's Pride and Judgment — A Free Warhammer 40K Fan Comic</title>
+  <meta name="description" content="Plaguefather's Pride and Judgment is a free Warhammer 40K fan graphic novel about a young Daemon Prince of Nurgle, released one installment at a time through the Eternal Warriors newsletter. Catch up on the story so far." />
+  <meta property="og:title" content="Plaguefather's Pride and Judgment — A Free Warhammer 40K Fan Comic" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #23202B; --panel: #2E2A3A; --panel-border: #453F59; --panel-border-light: #5A5375;
+      --chalk: #F2EFE6; --chalk-dim: #C9C4D6; --mustard: #C9A227; --sage: #8B9A7D;
+      --warp: #9B59D0; --news: #C0453E; --teal: #3E8E87; --plague: #8DB13F;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); font-family: 'Inter', sans-serif; display: flex; justify-content: center; padding: 32px 16px; }
+    main { width: 100%; max-width: 40rem; }
+    .back { display: inline-block; color: var(--sage); font-size: 0.85rem; text-decoration: none; margin-bottom: 20px; }
+    .back:hover { color: var(--chalk); }
+    .eyebrow { color: var(--plague); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; margin-bottom: 6px; }
+    h1 { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 2.8rem; line-height: 1.05; margin: 0 0 10px; text-align: center; }
+    h2 { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.9rem; margin: 30px 0 8px; }
+    .sub { color: var(--chalk-dim); font-size: 0.95rem; line-height: 1.6; text-align: center; max-width: 34rem; margin: 0 auto 8px; }
+    .sub.tagline { color: var(--chalk); font-style: italic; }
+    p { color: var(--chalk-dim); font-size: 0.92rem; line-height: 1.65; }
+    p b { color: var(--chalk); }
+
+    .social-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
+    .social-row a {
+      color: var(--chalk); font-size: 0.82rem; font-weight: 500; text-decoration: none;
+      border: 1px solid var(--panel-border-light); border-radius: 999px; padding: 7px 15px; background: var(--panel);
+    }
+    .social-row a:hover { border-color: var(--plague); }
+
+    /* Installments: to release one, change its <div class="installment soon"> to
+       <a class="installment" href="comics/installment-0N.html"> and swap the status line for
+       <span class="status read">Read →</span>. */
+    .installments { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 640px) { .installments { grid-template-columns: 1fr 1fr 1fr; } }
+    .installment { display: block; background: var(--panel); border: 1px solid var(--panel-border); border-radius: 0.9rem; padding: 16px; text-decoration: none; transition: border-color 0.15s ease, transform 0.15s ease; }
+    a.installment:hover { transform: translateY(-2px); border-color: var(--plague); }
+    .installment.soon { border-style: dashed; }
+    .installment .num { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; color: var(--plague); }
+    .installment .n { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin: 4px 0 6px; }
+    .status { display: inline-block; font-size: 0.78rem; font-weight: 600; border-radius: 999px; padding: 4px 11px; }
+    .status.soon { color: var(--chalk-dim); border: 1px dashed var(--panel-border-light); opacity: 0.75; }
+    .status.read { color: var(--bg); background: var(--plague); }
+
+    .cards { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 640px) { .cards { grid-template-columns: 1fr 1fr; } }
+    .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 0.9rem; overflow: hidden; }
+    .card img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; background: var(--bg); border-bottom: 1px solid var(--panel-border); }
+    .card .body { padding: 16px; }
+    .card .role { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; color: var(--plague); text-transform: uppercase; }
+    .card .n { color: var(--chalk); font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.6rem; line-height: 1.1; margin: 4px 0 6px; }
+    .card p { margin: 0; font-size: 0.86rem; }
+    .card.world { border-color: var(--panel-border-light); grid-column: 1 / -1; }
+
+    footer { margin-top: 32px; padding-top: 16px; border-top: 1px dashed var(--panel-border-light); color: var(--chalk-dim); opacity: 0.75; font-size: 0.75rem; text-align: center; line-height: 1.8; }
+    footer a { color: var(--sage); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="fattymatty40k.html">← FattyMatty 40K</a>
+
+    <div class="eyebrow" style="text-align:center;">A FREE WARHAMMER 40K FAN COMIC</div>
+    <h1>Plaguefather's Pride and Judgment</h1>
+    <p class="sub tagline">A Daemon Prince newly risen from the Boil has a lot to prove before he can be a general of Nurgle's army, and two very opinionated elders are watching him try.</p>
+    <p class="sub">A free comic from FattyMatty, released one installment at a time through the <b>Eternal Warriors</b> newsletter. Join the club to get each new installment as it drops.</p>
+    <div class="social-row">
+      <a href="https://discord.gg/ye8cTTbxpe">Eternal Warriors Discord</a>
+      <a href="https://www.facebook.com/groups/997745785883439/">Eternal Warriors Facebook Group</a>
+    </div>
+
+    <h2>Installments</h2>
+    <div class="installments">
+      <div class="installment soon" id="installment-01">
+        <div class="num">INSTALLMENT 1</div>
+        <div class="n">Installment 1</div>
+        <span class="status soon">Coming soon</span>
+      </div>
+      <div class="installment soon" id="installment-02">
+        <div class="num">INSTALLMENT 2</div>
+        <div class="n">Installment 2</div>
+        <span class="status soon">Coming soon</span>
+      </div>
+      <div class="installment soon" id="installment-03">
+        <div class="num">INSTALLMENT 3</div>
+        <div class="n">Installment 3</div>
+        <span class="status soon">Coming soon</span>
+      </div>
+      <div class="installment soon" id="installment-04">
+        <div class="num">INSTALLMENT 4</div>
+        <div class="n">Installment 4</div>
+        <span class="status soon">Coming soon</span>
+      </div>
+      <div class="installment soon" id="installment-05">
+        <div class="num">INSTALLMENT 5</div>
+        <div class="n">Installment 5</div>
+        <span class="status soon">Coming soon</span>
+      </div>
+    </div>
+
+    <h2>The World</h2>
+    <div class="cards">
+      <div class="card world">
+        <div class="body">
+          <div class="role">The Blightlord's Boil</div>
+          <div class="n">Foulfeast</div>
+          <p>A backwoods world once conquered by the Plague Marines, then given to Nurgle as a token of worship. Now it is all crumbling ruins, rocks that weep green oil, and pools of rotted mucus that birth daemons. Flies hang thick in the air. Storms almost never come here, so when the thunder starts, something is very wrong.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Characters</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="comics/img/malecore.jpg" width="800" height="1067" loading="lazy" alt="Character design art of Malecore, a black and red Daemon Prince of Nurgle with crimson-membraned wings and a plague axe" />
+        <div class="body">
+          <div class="role">Daemon Prince of Nurgle</div>
+          <div class="n">Malecore</div>
+          <p>Newly risen from the Boil, black and red, with crimson-membraned wings and a hellforged plague axe. Strangely, his body is untouched by the Plague Father's gifts. He has a lot to prove before he can be a general of Nurgle's army, and two very opinionated elders are watching him try.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="comics/img/epidemius.jpg" width="800" height="1067" loading="lazy" alt="Character design art of Epidemius, the Tallyman of Nurgle, on a throne carried by nurglings" />
+        <div class="body">
+          <div class="role">The Tallyman of Nurgle</div>
+          <div class="n">Epidemius</div>
+          <p>Nurgle's renowned Herald and record-keeper. Carried on a throne by giggling nurglings and guarded by plaguebearers, he judges and tallies everything he sees in his ledger, hourglass close at hand. He has his own idea of what a worthy trial looks like.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="comics/img/rotigus.jpg" width="800" height="1067" loading="lazy" alt="Character design art of Rotigus, the Rain Father, a towering Greater Daemon of Nurgle holding the Gnarlrod" />
+        <div class="body">
+          <div class="role">The Rain Father</div>
+          <div class="n">Rotigus</div>
+          <p>A towering Greater Daemon of Nurgle, wielding the Gnarlrod. Nobody invited him to Malecore's trials. He came anyway, because he believes there is much to gain from the young prince's success. He and Epidemius are... not close.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="comics/img/desecrator.jpg" width="800" height="1067" loading="lazy" alt="Character design art of the Desecrator, a colossal Soulgrinder daemon engine with burning red eyes" />
+        <div class="body">
+          <div class="role">Legendary Soulgrinder</div>
+          <div class="n">The Desecrator</div>
+          <p>A colossal daemon engine of metal and warp-flesh, with one fleshy warp claw bristling with guns, one plated metal claw, and burning red eyes. It's the biggest thing on the battlefield, and it walks straight over anything in its way.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <a href="index.html">Hub</a> · <a href="apps.html">Apps</a> · <a href="shop.html">Shop</a> · <a href="attactix.html">ATTACTIX</a> · <a href="fattymatty40k.html">FattyMatty 40K</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a><br />
+      Unofficial fan work, not endorsed by Games Workshop. Free to read, never sold.<br />
+      Warhammer 40,000 and all associated names are trademarks of Games Workshop Ltd.
+    </footer>
+  </main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fa6ba94cca0d46ab85e14e4f3a91dbd0"}'></script><!-- End Cloudflare Web Analytics --> </body>
+</html>
