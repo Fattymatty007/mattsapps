@@ -85,6 +85,8 @@
     a.door.shop:hover { border-color: var(--mustard); }
     a.door.attactix:hover { border-color: var(--crimson); }
     a.door.fm40k:hover { border-color: var(--warp); }
+    a.door.comics:hover { border-color: var(--warp); }
+    @media (min-width: 640px) { a.door.comics { grid-column: 1 / -1; } }
 
     .door-icon { font-size: 1.9rem; margin-bottom: 8px; }
 
@@ -110,6 +112,7 @@
     a.door.apps .door-cta { color: var(--sage); }
     a.door.attactix .door-cta { color: var(--crimson); }
     a.door.fm40k .door-cta { color: var(--warp); }
+    a.door.comics .door-cta { color: var(--warp); }
 
     .membership {
       background: var(--panel);
@@ -175,6 +178,13 @@
         <div class="door-name">FattyMatty 40K</div>
         <div class="door-tag">The Chaos Daemons channel: winning tournament lists every Monday, Daemons news, battle reports &amp; hobby — plus the Daemons stat tracker.</div>
         <span class="door-cta">JOIN THE LEGION →</span>
+      </a>
+
+      <a class="door comics" href="comics.html">
+        <div class="door-icon">📖</div>
+        <div class="door-name">Plaguefather's Pride and Judgment</div>
+        <div class="door-tag">A free Warhammer 40K fan comic about a young Daemon Prince of Nurgle, released one installment at a time through the Eternal Warriors newsletter.</div>
+        <span class="door-cta">READ THE STORY →</span>
       </a>
     </div>
 
