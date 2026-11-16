@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Post Queue</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="description" content="Private post queue" />
+  <meta name="theme-color" content="#23202B" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Post Queue" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180" />
+  <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #12101a;
+      --panel: #2E2A3A;
+      --panel-border: #453F59;
+      --panel-border-light: #5A5375;
+      --chalk: #F2EFE6;
+      --chalk-dim: #C9C4D6;
+      --mustard: #C9A227;
+      --brass: #e0c36a;
+      --warp: #9B59D0;
+      --khorne: #C0453E;
+      --nurgle: #8DB13F;
+      --teal: #3E8E87;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-display: "Cinzel Decorative", "Palatino Linotype", Palatino, serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--chalk); }
+    body {
+      font-family: var(--font-body);
+      font-size: 1.125rem;
+      line-height: 1.5;
+      padding: calc(20px + var(--safe-top)) 16px calc(40px + var(--safe-bottom));
+      min-height: 100vh;
+      position: relative;
+    }
+    .warp {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 90% 55% at 18% 0%, rgba(155, 89, 208, 0.32), transparent 58%),
+        radial-gradient(ellipse 60% 45% at 92% 12%, rgba(192, 69, 62, 0.16), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(141, 177, 63, 0.12), transparent 55%),
+        radial-gradient(circle at 50% 40%, #1a1624, var(--bg) 70%);
+      animation: warpShift 22s ease-in-out infinite alternate;
+    }
+    @keyframes warpShift {
+      from { filter: hue-rotate(0deg) saturate(1); transform: scale(1); }
+      to { filter: hue-rotate(-12deg) saturate(1.15); transform: scale(1.06); }
+    }
+    .ember {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--brass);
+      box-shadow: 0 0 8px 3px rgba(201, 162, 39, 0.55), 0 0 18px 6px rgba(155, 89, 208, 0.28);
+      opacity: 0.55;
+      animation: emberDrift 14s linear infinite;
+    }
+    .e1 { left: 8%; bottom: -8px; animation-duration: 16s; animation-delay: -2s; }
+    .e2 { left: 22%; bottom: -8px; width: 3px; height: 3px; animation-duration: 12s; animation-delay: -7s; background: var(--warp); }
+    .e3 { left: 41%; bottom: -8px; animation-duration: 18s; animation-delay: -4s; background: var(--khorne); }
+    .e4 { left: 63%; bottom: -8px; width: 4px; height: 4px; animation-duration: 13s; animation-delay: -9s; }
+    .e5 { left: 78%; bottom: -8px; animation-duration: 15s; animation-delay: -1s; background: var(--nurgle); }
+    .e6 { left: 91%; bottom: -8px; width: 3px; height: 3px; animation-duration: 11s; animation-delay: -6s; background: var(--warp); }
+    @keyframes emberDrift {
+      0% { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0; }
+      12% { opacity: 0.7; }
+      100% { transform: translate3d(12px, -110vh, 0) scale(0.3); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .warp, .ember, .badge-due, .copy-btn { animation: none !important; }
+      .warp { transform: none; filter: none; }
+    }
+    main { width: 100%; max-width: 40rem; margin: 0 auto; position: relative; z-index: 1; }
+    header { margin-bottom: 1.4rem; text-align: center; }
+    .eyebrow {
+      color: var(--warp);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 1.15;
+      margin: 0 0 10px;
+      font-weight: 900;
+      color: var(--chalk);
+      text-shadow: 0 0 18px rgba(155, 89, 208, 0.55), 0 0 4px rgba(201, 162, 39, 0.4);
+    }
+    .asof, .lede { color: var(--chalk-dim); margin: 0 0 8px; }
+    .section-label {
+      color: var(--brass);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin: 1.6rem 0 0.8rem;
+    }
+    .card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), transparent 28%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 7px),
+        var(--panel);
+      border: 1px solid var(--panel-border-light);
+      border-radius: 0.85rem;
+      padding: 1.15rem 1rem 1.25rem;
+      margin: 0 0 1rem;
+      box-shadow:
+        inset 0 0 0 1px rgba(201, 162, 39, 0.22),
+        inset 0 0 0 6px rgba(18, 16, 26, 0.35),
+        0 0 0 1px #1a1624,
+        0 8px 24px rgba(0, 0, 0, 0.35);
+      position: relative;
+    }
+    .card::before, .card::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--mustard);
+      box-shadow: 0 0 6px rgba(201, 162, 39, 0.8);
+    }
+    .card::before { top: 10px; left: 10px; }
+    .card::after { top: 10px; right: 10px; }
+    .card.is-due {
+      box-shadow:
+        inset 0 0 0 1px rgba(141, 177, 63, 0.55),
+        inset 0 0 0 6px rgba(18, 16, 26, 0.35),
+        0 0 18px rgba(141, 177, 63, 0.28);
+    }
+    .card.is-late {
+      box-shadow:
+        inset 0 0 0 1px rgba(192, 69, 62, 0.7),
+        inset 0 0 0 6px rgba(18, 16, 26, 0.35),
+        0 0 18px rgba(192, 69, 62, 0.28);
+    }
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 0 0.45rem;
+    }
+    .card h2 {
+      font-family: var(--font-display);
+      margin: 0;
+      font-weight: 700;
+      color: var(--chalk);
+      text-shadow: 0 0 10px rgba(155, 89, 208, 0.35);
+      flex: 1;
+    }
+    .when-date {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--chalk-dim);
+      text-shadow: none;
+      margin-bottom: 2px;
+    }
+    .when-time {
+      display: block;
+      font-size: 1.7rem;
+      line-height: 1.15;
+      color: var(--chalk);
+    }
+    .badge {
+      flex: 0 0 auto;
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 10px;
+      border-radius: 999px;
+      line-height: 1;
+      margin-top: 4px;
+    }
+    .badge-due {
+      background: var(--nurgle);
+      color: #12100c;
+      box-shadow: 0 0 12px rgba(141, 177, 63, 0.8);
+      animation: duePulse 1.6s ease-in-out infinite;
+    }
+    .badge-late {
+      background: var(--khorne);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(192, 69, 62, 0.75);
+    }
+    .badge-upcoming {
+      background: #3a3548;
+      color: #9b96aa;
+      border: 1px solid #5A5375;
+    }
+    @keyframes duePulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(141, 177, 63, 0.45); }
+      50% { box-shadow: 0 0 18px rgba(141, 177, 63, 0.95); }
+    }
+    .what {
+      font-size: 1.28rem;
+      line-height: 1.3;
+      font-weight: 700;
+      margin: 0 0 0.8rem;
+    }
+    .meta { margin-bottom: 0.75rem; }
+    .meta-row { margin: 0 0 0.45rem; }
+    .meta-key {
+      display: block;
+      color: var(--brass);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .meta-val { color: var(--chalk); word-break: break-word; }
+    .note { color: var(--chalk-dim); margin: 0 0 0.75rem; }
+    .pending {
+      color: var(--chalk-dim);
+      font-style: italic;
+      margin: 0.5rem 0 0;
+    }
+    .copy-block {
+      background: #1a1624;
+      border: 1px solid var(--panel-border);
+      border-radius: 0.85rem;
+      margin: 0.85rem 0 0;
+      overflow: hidden;
+    }
+    .copy-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px 0;
+    }
+    .copy-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warp);
+    }
+    .copy-btn {
+      appearance: none;
+      border: 0;
+      background: linear-gradient(180deg, #e0c36a, var(--mustard));
+      color: #1c1e18;
+      font: inherit;
+      font-size: 1.05rem;
+      font-weight: 800;
+      min-height: 48px;
+      min-width: 6.5rem;
+      padding: 10px 18px;
+      border-radius: 0.7rem;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 0 16px rgba(155, 89, 208, 0.55), 0 0 6px rgba(201, 162, 39, 0.7);
+    }
+    .copy-btn:active { transform: scale(0.98); }
+    .copy-btn.copied {
+      background: linear-gradient(180deg, #a4c85a, var(--nurgle));
+      box-shadow: 0 0 16px rgba(141, 177, 63, 0.7);
+    }
+    .copy-btn.failed { background: var(--khorne); color: #fff; box-shadow: 0 0 16px rgba(192, 69, 62, 0.7); }
+    .copy-text {
+      margin: 0;
+      padding: 12px 14px 16px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 1.05rem;
+      line-height: 1.45;
+      color: var(--chalk);
+    }
+    details.done {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 1rem;
+      padding: 0.4rem 1rem 0.4rem;
+      margin: 0 0 0.75rem;
+      box-shadow: inset 0 0 0 1px rgba(201, 162, 39, 0.15);
+    }
+    details.done summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.7rem 0;
+      list-style: none;
+    }
+    details.done summary::-webkit-details-marker { display: none; }
+    details.done summary::before {
+      content: "▸ ";
+      color: var(--mustard);
+    }
+    details.done[open] summary::before { content: "▾ "; }
+    details.done ul { margin: 0 0 0.9rem; padding-left: 1.15rem; }
+    details.done li, details.done p { color: var(--chalk-dim); margin: 0 0 0.5rem; }
+    .empty { color: var(--chalk-dim); }
+    .toast {
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      top: calc(12px + var(--safe-top));
+      bottom: auto;
+      max-width: 40rem;
+      margin: 0 auto;
+      background: #2E2A3A;
+      color: var(--chalk);
+      border: 1px solid var(--warp);
+      border-radius: 0.85rem;
+      padding: 14px 16px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      box-shadow: 0 0 28px rgba(155, 89, 208, 0.55), 0 8px 24px rgba(0,0,0,0.4);
+      z-index: 20;
+      transform: translateY(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .toast { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="warp" aria-hidden="true">
+    <span class="ember e1"></span>
+    <span class="ember e2"></span>
+    <span class="ember e3"></span>
+    <span class="ember e4"></span>
+    <span class="ember e5"></span>
+    <span class="ember e6"></span>
+  </div>
+  <main>
+    <header>
+      <p class="eyebrow">Chaos Daemons · Warhammer 40K</p>
+      <h1>FattyMatty's Warp Queue</h1>
+      <p class="asof">As of Sun Nov 15, 2026, Pacific Time · times in PT</p>
+      <p class="lede">Open this page, copy, paste. Each task is about 5 minutes or less.</p>
+<p class="lede">Weekday windows (PT): 5:15–5:30 AM (before clock-in) and 3:20–3:30 PM (before leaving). Nothing during the drive. Weekend items are in the morning, about an hour apart.</p>
+    </header>
+    <p class="section-label">Up next</p>
+    
+    <article class="card" data-start="2026-11-16T15:20:00-08:00" data-late-after="2026-11-16T15:30:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Mon Nov 16</span><span class="when-time">3:20 PM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">X · Ep. 6</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">X (@FattyMatty0007)</span></div>
+<div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Thumbnail A or a Tyrant frame</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do</span></div></div>
+      <p class="note">The video is public at 5:30 AM PT. Post the main post from your phone with the image attached. Then tell Remy &quot;post the reply&quot; and she posts the link reply for you. The self-reply is here as a backup if you post it yourself.</p>
+      
+        <div class="copy-block">
+          <div class="copy-head">
+            <span class="copy-label">Main post</span>
+            <button type="button" class="copy-btn">Copy</button>
+          </div>
+          <pre class="copy-text">Same Daemons list, two weekends: 3-0, then 4-1 at a 32-player GT.
+
+That&#39;s 7-1 with a Knight Tyrant in the list.
+
+#Warhammer40k #wh40k</pre>
+        </div>
+
+        <div class="copy-block">
+          <div class="copy-head">
+            <span class="copy-label">Self-reply (backup)</span>
+            <button type="button" class="copy-btn">Copy</button>
+          </div>
+          <pre class="copy-text">Ep. 6: https://youtu.be/SVO0QxSZS9o</pre>
+        </div>
+    </article>
+
+    <article class="card" data-start="2026-11-16T15:25:00-08:00" data-late-after="2026-11-16T15:30:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Mon Nov 16</span><span class="when-time">3:25 PM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">Discord and Facebook · Ep. 6</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">Eternal Warriors Discord, then Eternal Warriors Gaming (Facebook group)</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — copy is not in the kit yet. Remy will add it here before this goes out.</span></div></div>
+      
+      <p class="pending">Copy is not in the queue yet.</p>
+    </article>
+
+    <article class="card" data-start="2026-11-17T15:20:00-08:00" data-late-after="2026-11-17T15:30:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Tue Nov 17</span><span class="when-time">3:20 PM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">X · Ep. 6 Short</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">X (@FattyMatty0007)</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — copy will be added once the Short is public (scheduled 7:00 AM PT).</span></div></div>
+      
+      <p class="pending">Copy is not in the queue yet.</p>
+    </article>
+
+    <article class="card" data-start="2026-11-18T15:20:00-08:00" data-late-after="2026-11-18T15:30:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Wed Nov 18</span><span class="when-time">3:20 PM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">Reddit · Ep. 6</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">r/WarhammerCompetitive</span></div>
+<div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Nothing. Open https://www.reddit.com/r/WarhammerCompetitive/submit</span></div>
+<div class="meta-row"><span class="meta-key">Flair</span><span class="meta-val">Pick list or tournament discussion (check the sidebar).</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do</span></div>
+<div class="meta-row"><span class="meta-val">After it is up, spend the rest of this window on replies, at home only.</span></div></div>
+      
+      
+        <div class="copy-block">
+          <div class="copy-head">
+            <span class="copy-label">Title</span>
+            <button type="button" class="copy-btn">Copy</button>
+          </div>
+          <pre class="copy-text">Same Chaos Daemons list with a Knight Tyrant went 3-0, then 4-1 at a 32-player GT: 7-1 over two events</pre>
+        </div>
+
+        <div class="copy-block">
+          <div class="copy-head">
+            <span class="copy-label">Body</span>
+            <button type="button" class="copy-btn">Copy</button>
+          </div>
+          <pre class="copy-text">I run a small Chaos Daemons channel. This week&#39;s video follows up on J.R. Cook&#39;s &quot;Shadow scrim&quot; list from last episode: Chaos Daemons with an allied Knight Tyrant, which went 3-0 and took 2nd at Halloween Nemesis Monthly (Alberta, 18 players). He took the exact same list to a 32-player, 5-round GT the next weekend and went 4-1 for 3rd. That&#39;s 7-1 over two events. Written version below.
+
+The list (Shadow Legion + Warptide, Purge the Foe, 2,000 pts — unchanged from Halloween)
+- Bloodthirster (Warlord) with Fade to Darkness: 350
+- Poxbringer with Malice Made Manifest: 85 + 10 Plaguebearers: 115
+- Sloppity Bilepiper with Leaping Shadows: 80 + 10 Plaguebearers: 115
+- Fateskimmer: 95 + 6 Screamers: 160
+- 6 Screamers: 160
+- 6 Screamers: 160
+- Burning Chariot: 115
+- 3 Nurglings: 45
+- 3 Nurglings: 45
+- Allied: Knight Tyrant 390, Chaos Lord with Jump Pack 85
+
+Nemesis Fall 2026 - The Movie - The Game (Alberta, Nov 7-8, 32 players), 3rd (4-1)
+- R1: W 100-63 vs Genestealer Cults
+- R2: W 85-84 vs T&#39;au Empire
+- R3: L 41-100 vs Death Guard
+- R4: W 100-63 vs Necrons
+- R5: W 90-72 vs Adeptus Custodes
+
+The only loss was to Death Guard. On Halloween this same list beat Death Guard 94-54, a different player. I don&#39;t know what happened in the GT loss, so I&#39;m not going to claim it&#39;s a bad matchup.
+
+Before this run, Cook took a similar Knight Tyrant list with Be&#39;lakor and a Keeper of Secrets to Hallowtide Redux (Oct 17, 35 players) and went 2-3. He then cut Be&#39;lakor and the Keeper for two more Screamer units and two Plaguebearer blocks. Next two events with that version: 7-1.
+
+That 4-1 was Daemons&#39; only X-1 at qualifying GTs that weekend. Listhammer had Chaos Daemons at 45.7% over 105 games, 21 players, with no event wins and no undefeated lists. Most-brought was Blood Legion + Warptide (5 players, 38.5%). One weekend, small sample.
+
+Bonus from the same weekend, a 3-round event: Luca Vella&#39;s Khorne list with Be&#39;lakor went 3-0 and took 2nd of 47 at Warhammer 40k Modena (Italy, Nov 8). Blood Legion + Cavalcade of Chaos, 1,995 pts: Be&#39;lakor (Warlord), Skarbrand, Rendmaster on Blood Throne, 12 Bloodcrushers with 3 Skullmasters, 2 units of Flesh Hounds, 2 Skull Cannons. Rounds: R1 W 86-71 vs Dark Angels, R2 W 67-55 vs Grey Knights, R3 W 76-44 vs Aeldari.
+
+Lists are as published on Listhammer. Credit to J.R. Cook and Luca Vella. Points are still Munitorum Field Manual v1.6; nothing changed between the two Cook events.
+
+Question for the thread: would you put a Knight Tyrant in your Daemons list? 390 points is a big cut. Is the gun platform and the big body worth it, or do you spend that elsewhere?
+
+Full video if you want the detail: https://youtu.be/SVO0QxSZS9o
+
+I&#39;ll reply to comments this evening.</pre>
+        </div>
+    </article>
+
+    <article class="card" data-start="2026-11-19T15:20:00-08:00" data-late-after="2026-11-19T15:30:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Thu Nov 19</span><span class="when-time">3:20 PM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">X · Knights With Invulns</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">X (@FattyMatty0007)</span></div>
+<div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">The Short or a Greater Daemons frame</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do (unconfirmed from Sat Nov 14). Skip if this already went out.</span></div></div>
+      
+      
+        <div class="copy-block">
+          <div class="copy-head">
+            <span class="copy-label">Main post</span>
+            <button type="button" class="copy-btn">Copy</button>
+          </div>
+          <pre class="copy-text">Five Greater Daemons on the table feel like facing Knights that all have invulnerable saves.
+
+Short on the channel.
+
+#Warhammer40k #wh40k</pre>
+        </div>
+
+        <div class="copy-block">
+          <div class="copy-head">
+            <span class="copy-label">Self-reply</span>
+            <button type="button" class="copy-btn">Copy</button>
+          </div>
+          <pre class="copy-text">Short: https://www.youtube.com/shorts/jqbmRzFKick</pre>
+        </div>
+    </article>
+
+    <article class="card" data-start="2026-11-19T15:25:00-08:00" data-late-after="2026-11-19T15:30:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Thu Nov 19</span><span class="when-time">3:25 PM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">Discord · Ep. 4 reminder</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">Eternal Warriors Discord</span></div>
+<div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Nothing</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do (unconfirmed from Sat Nov 14). Skip if this already went out.</span></div></div>
+      
+      
+        <div class="copy-block">
+          <div class="copy-head">
+            <span class="copy-label">Discord line</span>
+            <button type="button" class="copy-btn">Copy</button>
+          </div>
+          <pre class="copy-text">Ep. 4 reminder: five Greater Daemons went 4-1. Monsters Inc. breakdown: https://youtu.be/fxg7m1UP7UI</pre>
+        </div>
+    </article>
+
+    <article class="card" data-start="2026-11-21T09:00:00-08:00" data-late-after="2026-11-21T10:00:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Sat Nov 21</span><span class="when-time">9:00 AM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">Photo post</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">10:00 AM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platforms</span><span class="meta-val">Eternal Warriors Gaming (Facebook group), Eternal Warriors Discord, and r/ChaosDaemons40k</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — copy is not ready yet. Remy will add it here.</span></div></div>
+      <p class="note">Photo first on Reddit; link in a comment only if the sidebar allows.</p>
+      <p class="pending">Copy is not in the queue yet.</p>
+    </article>
+
+    <article class="card" data-start="2026-11-21T10:00:00-08:00" data-late-after="2026-11-21T11:00:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Sat Nov 21</span><span class="when-time">10:00 AM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">X · Short</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">11:00 AM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">X (@FattyMatty0007)</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — copy is not ready yet. Remy will add it here once Steve has the Short.</span></div></div>
+      
+      <p class="pending">Copy is not in the queue yet.</p>
+    </article>
+
+    <article class="card" data-start="2026-11-21T11:00:00-08:00" data-late-after="2026-11-21T12:00:00-08:00">
+      <div class="card-top">
+        <h2><span class="when-date">Sat Nov 21</span><span class="when-time">11:00 AM PT</span></h2>
+        <span class="badge" data-badge hidden></span>
+      </div>
+      <p class="what">Optional r/Warhammer40k photo</p>
+      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">12:00 PM PT</span></div>
+<div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">r/Warhammer40k</span></div>
+<div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Photo of your Chaos Knights only. No link, no channel mention.</span></div>
+<div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do (optional) — copy is not ready yet. Remy will add it here.</span></div></div>
+      
+      <p class="pending">Copy is not in the queue yet.</p>
+    </article>
+    
+    <details class="done">
+      <summary>Done (3)</summary>
+      <ul>
+<li>Knight Tyrant Short on X — posted Nov 14</li>
+<li>Soul Grinders Short on X — posted Nov 15</li>
+<li>All-Nurgle Short on X — Nov 15</li>
+</ul>
+<p>Skipped: 71% Short (dropped Nov 14). The Tue Nov 17 Community post is now Steve&#39;s, not in this queue.</p>
+    </details>
+    
+    <details class="done">
+      <summary>Held (not in this week’s queue)</summary>
+      <ul>
+<li>State of Daemons boost kit is still unposted, but it waits until after the Mon Nov 16 Ep. 6 launch is handled. Not given a date in Nov 16–22.</li>
+</ul>
+    </details>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    (function () {
+      var TZ = 'America/Los_Angeles';
+      var TOASTS = [
+        'Copied! Blood for the Blood God',
+        'Copied! Skulls for the Skull Throne',
+        'Copied! The Warp provides',
+        'Copied! Nurgle is pleased',
+        'Copied! Let the galaxy burn'
+      ];
+      var toastEl = document.getElementById('toast');
+      var toastTimer = 0;
+      var toastIndex = 0;
+
+      function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '0';
+        ta.style.left = '-9999px';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        ta.setSelectionRange(0, ta.value.length);
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        document.body.removeChild(ta);
+        return ok;
+      }
+
+      function showToast(message) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 1800);
+      }
+
+      function mark(btn, cls, label) {
+        var prev = btn.getAttribute('data-label') || 'Copy';
+        btn.setAttribute('data-label', prev);
+        btn.textContent = label;
+        btn.classList.remove('copied', 'failed');
+        if (cls) btn.classList.add(cls);
+        clearTimeout(btn._reset);
+        btn._reset = setTimeout(function () {
+          btn.textContent = prev;
+          btn.classList.remove('copied', 'failed');
+        }, 1600);
+      }
+
+      function copyFrom(btn, text) {
+        var done = function (ok) {
+          mark(btn, ok ? 'copied' : 'failed', ok ? 'Copied!' : 'Copy failed');
+          if (ok) {
+            showToast(TOASTS[toastIndex % TOASTS.length]);
+            toastIndex += 1;
+          }
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { done(true); }).catch(function () {
+            done(fallbackCopy(text));
+          });
+          return;
+        }
+        done(fallbackCopy(text));
+      }
+
+      document.querySelectorAll('.copy-block').forEach(function (block) {
+        var btn = block.querySelector('.copy-btn');
+        var pre = block.querySelector('.copy-text');
+        if (!btn || !pre) return;
+        btn.addEventListener('click', function () { copyFrom(btn, pre.textContent); });
+      });
+
+      // Badge timing: compare instants. Card times are ISO with a Pacific
+      // offset. "Now" is taken as an absolute instant (Date.now), never from
+      // the phone's local zone. Intl is used to confirm the active Pacific offset.
+      function pacificOffsetMinutes(ms) {
+        var tz = new Intl.DateTimeFormat('en-US', {
+          timeZone: TZ,
+          timeZoneName: 'shortOffset',
+          hour: '2-digit',
+          minute: '2-digit'
+        }).formatToParts(new Date(ms)).find(function (p) { return p.type === 'timeZoneName'; });
+        var text = tz && tz.value ? tz.value : '';
+        var m = text.match(/(?:GMT|UTC)([+-])(d{1,2})(?::(d{2}))?/);
+        if (!m) return null;
+        return (m[1] === '-' ? -1 : 1) * (Number(m[2]) * 60 + Number(m[3] || 0));
+      }
+
+      function refreshBadges() {
+        var now = Date.now();
+        pacificOffsetMinutes(now); // keep Intl in the path so a device zone is never assumed
+        document.querySelectorAll('.card[data-start]').forEach(function (card) {
+          var start = Date.parse(card.getAttribute('data-start'));
+          var late = Date.parse(card.getAttribute('data-late-after') || '');
+          var badge = card.querySelector('[data-badge]');
+          if (!badge || !isFinite(start)) return;
+          var state;
+          if (now < start) state = 'upcoming';
+          else if (!isFinite(late) || now <= late) state = 'due';
+          else state = 'late';
+          badge.hidden = false;
+          badge.classList.remove('badge-due', 'badge-late', 'badge-upcoming');
+          card.classList.remove('is-due', 'is-late', 'is-upcoming');
+          if (state === 'due') {
+            badge.textContent = 'DUE NOW';
+            badge.classList.add('badge-due');
+            card.classList.add('is-due');
+          } else if (state === 'late') {
+            badge.textContent = 'LATE';
+            badge.classList.add('badge-late');
+            card.classList.add('is-late');
+          } else {
+            badge.textContent = 'UPCOMING';
+            badge.classList.add('badge-upcoming');
+            card.classList.add('is-upcoming');
+          }
+        });
+      }
+
+      refreshBadges();
+      setInterval(refreshBadges, 60 * 1000);
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) refreshBadges();
+      });
+    })();
+  </script>
+</body>
+</html>
