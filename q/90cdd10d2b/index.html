@@ -297,6 +297,142 @@
       line-height: 1.45;
       color: var(--chalk);
     }
+    .done-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--panel-border);
+    }
+    .card.is-marked-done {
+      padding: 0.9rem 1rem;
+    }
+    .card.is-marked-done .card-full { display: none; }
+    .card.is-marked-done .done-row {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+      align-items: flex-start;
+    }
+    .done-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1 1 auto;
+      cursor: pointer;
+      min-height: 52px;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      position: relative;
+    }
+    .card.is-marked-done .done-toggle {
+      flex: 0 0 auto;
+      min-height: 48px;
+    }
+    .done-check {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .done-box {
+      flex: 0 0 auto;
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--brass);
+      border-radius: 0.7rem;
+      background: #1a1624;
+      box-shadow: 0 0 12px rgba(155, 89, 208, 0.4), inset 0 0 0 1px rgba(201, 162, 39, 0.25);
+      display: grid;
+      place-items: center;
+    }
+    .done-check:focus-visible + .done-box {
+      outline: 2px solid var(--warp);
+      outline-offset: 3px;
+    }
+    .done-check:checked + .done-box {
+      background: linear-gradient(180deg, #a4c85a, var(--nurgle));
+      border-color: #c6e26a;
+      box-shadow: 0 0 16px rgba(141, 177, 63, 0.7);
+    }
+    .done-check:checked + .done-box::after {
+      content: "";
+      width: 12px;
+      height: 22px;
+      border-right: 4px solid #12100c;
+      border-bottom: 4px solid #12100c;
+      transform: rotate(45deg) translateY(-2px);
+      margin-top: -4px;
+    }
+    .done-word {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+    .card.is-marked-done .done-word {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+    .done-compact {
+      display: none;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .card.is-marked-done .done-compact { display: block; }
+    .done-line {
+      margin: 0 0 0.35rem;
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.3;
+      color: var(--chalk);
+    }
+    .done-wait {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #3a3548;
+      color: var(--brass);
+      border: 1px solid var(--mustard);
+      margin: 0 0 0.65rem;
+    }
+    .tell-remy {
+      appearance: none;
+      display: block;
+      border: 0;
+      background: linear-gradient(180deg, #c089e0, var(--warp));
+      color: #1c1024;
+      font: inherit;
+      font-size: 1.02rem;
+      font-weight: 800;
+      min-height: 48px;
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 0.7rem;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 0 16px rgba(155, 89, 208, 0.55);
+    }
+    .tell-remy:active { transform: scale(0.98); }
+    .tell-remy.copied {
+      background: linear-gradient(180deg, #a4c85a, var(--nurgle));
+      box-shadow: 0 0 16px rgba(141, 177, 63, 0.7);
+    }
+    .tell-remy.failed { background: var(--khorne); color: #fff; box-shadow: 0 0 16px rgba(192, 69, 62, 0.7); }
     details.done {
       background: var(--panel);
       border: 1px solid var(--panel-border);
@@ -369,18 +505,19 @@
     </header>
     <p class="section-label">Up next</p>
     
-    <article class="card" data-start="2026-11-16T15:20:00-08:00" data-late-after="2026-11-16T15:30:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Mon Nov 16</span><span class="when-time">3:20 PM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">X · Ep. 6</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+    <article class="card" data-item-id="3b3f81bfabfc" data-date="Mon Nov 16" data-time="3:20 PM PT" data-platform="X (@FattyMatty0007)" data-what="X · Ep. 6" data-tell="Done: Mon Nov 16 3:20 PM PT X (@FattyMatty0007) — X · Ep. 6" data-start="2026-11-16T15:20:00-08:00" data-late-after="2026-11-16T15:30:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Mon Nov 16</span><span class="when-time">3:20 PM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">X · Ep. 6</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">X (@FattyMatty0007)</span></div>
 <div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Thumbnail A or a Tyrant frame</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do</span></div></div>
-      <p class="note">The video is public at 5:30 AM PT. Post the main post from your phone with the image attached. Then tell Remy &quot;post the reply&quot; and she posts the link reply for you. The self-reply is here as a backup if you post it yourself.</p>
-      
+        <p class="note">The video is public at 5:30 AM PT. Post the main post from your phone with the image attached. Then tell Remy &quot;post the reply&quot; and she posts the link reply for you. The self-reply is here as a backup if you post it yourself.</p>
+        
         <div class="copy-block">
           <div class="copy-head">
             <span class="copy-label">Main post</span>
@@ -400,20 +537,34 @@ That&#39;s 7-1 with a Knight Tyrant in the list.
           </div>
           <pre class="copy-text">Ep. 6: https://youtu.be/SVO0QxSZS9o</pre>
         </div>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Mon Nov 16 · 3:20 PM PT · X (@FattyMatty0007) — X · Ep. 6</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-16T15:25:00-08:00" data-late-after="2026-11-16T15:30:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Mon Nov 16</span><span class="when-time">3:25 PM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">Discord and Facebook · Ep. 6</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+    <article class="card" data-item-id="68a0e035a19e" data-date="Mon Nov 16" data-time="3:25 PM PT" data-platform="Eternal Warriors Discord, then Eternal Warriors Gaming (Facebook group)" data-what="Discord and Facebook · Ep. 6" data-tell="Done: Mon Nov 16 3:25 PM PT Eternal Warriors Discord, then Eternal Warriors Gaming (Facebook group) — Discord and Facebook · Ep. 6" data-start="2026-11-16T15:25:00-08:00" data-late-after="2026-11-16T15:30:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Mon Nov 16</span><span class="when-time">3:25 PM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">Discord and Facebook · Ep. 6</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">Eternal Warriors Discord, then Eternal Warriors Gaming (Facebook group)</span></div>
 <div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Nothing</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do</span></div></div>
-      <p class="note">Post Discord first, then the Facebook group. Link only to the YouTube video.</p>
-      
+        <p class="note">Post Discord first, then the Facebook group. Link only to the YouTube video.</p>
+        
         <div class="copy-block">
           <div class="copy-head">
             <span class="copy-label">Discord</span>
@@ -433,22 +584,36 @@ https://youtu.be/SVO0QxSZS9o
 
 Would you put a Knight Tyrant in your Daemons list?</pre>
         </div>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Mon Nov 16 · 3:25 PM PT · Eternal Warriors Discord, then Eternal Warriors Gaming (Facebook group) — Discord and Facebook · Ep. 6</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-18T15:20:00-08:00" data-late-after="2026-11-18T15:30:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Wed Nov 18</span><span class="when-time">3:20 PM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">Reddit · Ep. 6</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+    <article class="card" data-item-id="c32ae74cfcc8" data-date="Wed Nov 18" data-time="3:20 PM PT" data-platform="r/WarhammerCompetitive" data-what="Reddit · Ep. 6" data-tell="Done: Wed Nov 18 3:20 PM PT r/WarhammerCompetitive — Reddit · Ep. 6" data-start="2026-11-18T15:20:00-08:00" data-late-after="2026-11-18T15:30:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Wed Nov 18</span><span class="when-time">3:20 PM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">Reddit · Ep. 6</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">r/WarhammerCompetitive</span></div>
 <div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Nothing. Open https://www.reddit.com/r/WarhammerCompetitive/submit</span></div>
 <div class="meta-row"><span class="meta-key">Flair</span><span class="meta-val">Pick list or tournament discussion (check the sidebar).</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do</span></div>
 <div class="meta-row"><span class="meta-val">After it is up, spend the rest of this window on replies, at home only.</span></div></div>
-      
-      
+        
+        
         <div class="copy-block">
           <div class="copy-head">
             <span class="copy-label">Title</span>
@@ -499,34 +664,62 @@ Full video if you want the detail: https://youtu.be/SVO0QxSZS9o
 
 I&#39;ll reply to comments this evening.</pre>
         </div>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Wed Nov 18 · 3:20 PM PT · r/WarhammerCompetitive — Reddit · Ep. 6</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-18T15:30:00-08:00" data-late-after="2026-11-18T16:00:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Wed Nov 18</span><span class="when-time">3:30 PM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">Instagram Reel · Knight Tyrant (already scheduled)</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">4:00 PM PT</span></div>
+    <article class="card" data-item-id="67c420cac009" data-date="Wed Nov 18" data-time="3:30 PM PT" data-platform="Instagram (@fattymatty40k)" data-what="Instagram Reel · Knight Tyrant (already scheduled)" data-tell="Done: Wed Nov 18 3:30 PM PT Instagram (@fattymatty40k) — Instagram Reel · Knight Tyrant (already scheduled)" data-start="2026-11-18T15:30:00-08:00" data-late-after="2026-11-18T16:00:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Wed Nov 18</span><span class="when-time">3:30 PM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">Instagram Reel · Knight Tyrant (already scheduled)</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">4:00 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">Instagram (@fattymatty40k)</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">Already scheduled in the Instagram app (Matt confirmed). Not a new item. Listed here so this slot stays taken.</span></div>
 <div class="meta-row"><span class="meta-val">Remy will check after 3:30 PM PT, read-only, whether it went out.</span></div></div>
-      
-      <p class="pending">Copy is not in the queue yet.</p>
+        
+        <p class="pending">Copy is not in the queue yet.</p>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Wed Nov 18 · 3:30 PM PT · Instagram (@fattymatty40k) — Instagram Reel · Knight Tyrant (already scheduled)</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-19T15:20:00-08:00" data-late-after="2026-11-19T15:30:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Thu Nov 19</span><span class="when-time">3:20 PM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">X · Ep. 6 Short 1 (Knight Tyrant 4-1 / 7-1)</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+    <article class="card" data-item-id="86fc6bb9467c" data-date="Thu Nov 19" data-time="3:20 PM PT" data-platform="X (@FattyMatty0007)" data-what="X · Ep. 6 Short 1 (Knight Tyrant 4-1 / 7-1)" data-tell="Done: Thu Nov 19 3:20 PM PT X (@FattyMatty0007) — X · Ep. 6 Short 1 (Knight Tyrant 4-1 / 7-1)" data-start="2026-11-19T15:20:00-08:00" data-late-after="2026-11-19T15:30:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Thu Nov 19</span><span class="when-time">3:20 PM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">X · Ep. 6 Short 1 (Knight Tyrant 4-1 / 7-1)</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">X (@FattyMatty0007)</span></div>
 <div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">The Short, or a Knight Tyrant frame</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — only if the Short is public. It is scheduled for Wed Nov 18, 5:30 AM PT. Moved off Tue Nov 17 because the Ep. 6 Shorts go public Nov 18, 20, and 22 at 5:30 AM PT. Confirm it is public before posting. Paste the public Short URL in the self-reply. Skip this item if the Short did not go up.</span></div></div>
-      
-      
+        
+        
         <div class="copy-block">
           <div class="copy-head">
             <span class="copy-label">Main post</span>
@@ -546,20 +739,34 @@ Same list as the weekend before: that&#39;s 7-1 over two events.
           </div>
           <pre class="copy-text">Short: [YouTube Short URL once it is public]</pre>
         </div>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Thu Nov 19 · 3:20 PM PT · X (@FattyMatty0007) — X · Ep. 6 Short 1 (Knight Tyrant 4-1 / 7-1)</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-19T15:25:00-08:00" data-late-after="2026-11-19T15:30:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Thu Nov 19</span><span class="when-time">3:25 PM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">Discord · Ep. 4 reminder</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
+    <article class="card" data-item-id="64bb93a0c913" data-date="Thu Nov 19" data-time="3:25 PM PT" data-platform="Eternal Warriors Discord" data-what="Discord · Ep. 4 reminder" data-tell="Done: Thu Nov 19 3:25 PM PT Eternal Warriors Discord — Discord · Ep. 4 reminder" data-start="2026-11-19T15:25:00-08:00" data-late-after="2026-11-19T15:30:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Thu Nov 19</span><span class="when-time">3:25 PM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">Discord · Ep. 4 reminder</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">3:30 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">Eternal Warriors Discord</span></div>
 <div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Nothing</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do (unconfirmed from Sat Nov 14). Skip if this already went out.</span></div></div>
-      
-      
+        
+        
         <div class="copy-block">
           <div class="copy-head">
             <span class="copy-label">Discord line</span>
@@ -567,20 +774,34 @@ Same list as the weekend before: that&#39;s 7-1 over two events.
           </div>
           <pre class="copy-text">Ep. 4 reminder: five Greater Daemons went 4-1. Monsters Inc. breakdown: https://youtu.be/fxg7m1UP7UI</pre>
         </div>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Thu Nov 19 · 3:25 PM PT · Eternal Warriors Discord — Discord · Ep. 4 reminder</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-20T15:30:00-08:00" data-late-after="2026-11-20T16:00:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Fri Nov 20</span><span class="when-time">3:30 PM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">Instagram Reel · Soul Grinders Short (RED, newest of the two Reels)</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">4:00 PM PT</span></div>
+    <article class="card" data-item-id="5a590c763db3" data-date="Fri Nov 20" data-time="3:30 PM PT" data-platform="Instagram (@fattymatty40k)" data-what="Instagram Reel · Soul Grinders Short (RED, newest of the two Reels)" data-tell="Done: Fri Nov 20 3:30 PM PT Instagram (@fattymatty40k) — Instagram Reel · Soul Grinders Short (RED, newest of the two Reels)" data-start="2026-11-20T15:30:00-08:00" data-late-after="2026-11-20T16:00:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Fri Nov 20</span><span class="when-time">3:30 PM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">Instagram Reel · Soul Grinders Short (RED, newest of the two Reels)</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">4:00 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">Instagram (@fattymatty40k)</span></div>
 <div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">`ep4/ep4-short3-soul-grinders-steal.mp4` under `/workspace/fattymatty40k/shorts/`</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — schedule in the Instagram app. Max 5 hashtags. YouTube link stays in the bio, not in the caption. Confirm the Short is still public first: https://www.youtube.com/shorts/IH56FSxALhg</span></div></div>
-      
-      
+        
+        
         <div class="copy-block">
           <div class="copy-head">
             <span class="copy-label">Caption</span>
@@ -592,48 +813,90 @@ Link in bio for the Short.
 
 #warhammer40k #chaosdaemons #soulgrinder #40ktournament #warhammer</pre>
         </div>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Fri Nov 20 · 3:30 PM PT · Instagram (@fattymatty40k) — Instagram Reel · Soul Grinders Short (RED, newest of the two Reels)</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-21T09:00:00-08:00" data-late-after="2026-11-21T10:00:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Sat Nov 21</span><span class="when-time">9:00 AM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">Photo post</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">10:00 AM PT</span></div>
+    <article class="card" data-item-id="21128b05a052" data-date="Sat Nov 21" data-time="9:00 AM PT" data-platform="" data-what="Photo post" data-tell="Done: Sat Nov 21 9:00 AM PT — Photo post" data-start="2026-11-21T09:00:00-08:00" data-late-after="2026-11-21T10:00:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Sat Nov 21</span><span class="when-time">9:00 AM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">Photo post</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">10:00 AM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platforms</span><span class="meta-val">Eternal Warriors Gaming (Facebook group) and Eternal Warriors Discord</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — copy is not ready yet. Remy will add it here.</span></div>
 <div class="meta-row"><span class="meta-val">Do not also post this photo to r/ChaosDaemons40k today. The 11:00 AM item is the Reddit post for this morning.</span></div></div>
-      <p class="note">Photo first on Facebook and Discord.</p>
-      <p class="pending">Copy is not in the queue yet.</p>
+        <p class="note">Photo first on Facebook and Discord.</p>
+        <p class="pending">Copy is not in the queue yet.</p>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Sat Nov 21 · 9:00 AM PT — Photo post</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-21T10:00:00-08:00" data-late-after="2026-11-21T11:00:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Sat Nov 21</span><span class="when-time">10:00 AM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">X · Short</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">11:00 AM PT</span></div>
+    <article class="card" data-item-id="d10ecaf1ce62" data-date="Sat Nov 21" data-time="10:00 AM PT" data-platform="X (@FattyMatty0007)" data-what="X · Short" data-tell="Done: Sat Nov 21 10:00 AM PT X (@FattyMatty0007) — X · Short" data-start="2026-11-21T10:00:00-08:00" data-late-after="2026-11-21T11:00:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Sat Nov 21</span><span class="when-time">10:00 AM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">X · Short</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">11:00 AM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">X (@FattyMatty0007)</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — copy is not ready yet. Remy will add it here once Steve has the Short.</span></div></div>
-      
-      <p class="pending">Copy is not in the queue yet.</p>
+        
+        <p class="pending">Copy is not in the queue yet.</p>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Sat Nov 21 · 10:00 AM PT · X (@FattyMatty0007) — X · Short</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-21T11:00:00-08:00" data-late-after="2026-11-21T12:00:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Sat Nov 21</span><span class="when-time">11:00 AM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">Reddit · State of Daemons (RED)</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">12:00 PM PT</span></div>
+    <article class="card" data-item-id="9e86ff2983a8" data-date="Sat Nov 21" data-time="11:00 AM PT" data-platform="r/ChaosDaemons40k" data-what="Reddit · State of Daemons (RED)" data-tell="Done: Sat Nov 21 11:00 AM PT r/ChaosDaemons40k — Reddit · State of Daemons (RED)" data-start="2026-11-21T11:00:00-08:00" data-late-after="2026-11-21T12:00:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Sat Nov 21</span><span class="when-time">11:00 AM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">Reddit · State of Daemons (RED)</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">12:00 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">r/ChaosDaemons40k</span></div>
 <div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">Nothing. Open https://www.reddit.com/r/ChaosDaemons40k/submit</span></div>
 <div class="meta-row"><span class="meta-key">Flair</span><span class="meta-val">Check the sidebar and pick the best fit (discussion / list / army).</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do. This replaces the optional r/Warhammer40k Chaos Knights photo for this Saturday. r/Warhammer40k is photo-only with no channel link, so it cannot carry this YouTube boost. Link only to the YouTube video.</span></div></div>
-      
-      
+        
+        
         <div class="copy-block">
           <div class="copy-head">
             <span class="copy-label">Title</span>
@@ -655,20 +918,34 @@ Full recap is here: https://youtu.be/boQhNxEyobI
 
 I&#39;ll reply to comments.</pre>
         </div>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Sat Nov 21 · 11:00 AM PT · r/ChaosDaemons40k — Reddit · State of Daemons (RED)</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-start="2026-11-23T15:30:00-08:00" data-late-after="2026-11-23T16:00:00-08:00">
-      <div class="card-top">
-        <h2><span class="when-date">Mon Nov 23</span><span class="when-time">3:30 PM PT</span></h2>
-        <span class="badge" data-badge hidden></span>
-      </div>
-      <p class="what">Instagram Reel · Knights With Invulns Short (RED)</p>
-      <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">4:00 PM PT</span></div>
+    <article class="card" data-item-id="f84dd5184c24" data-date="Mon Nov 23" data-time="3:30 PM PT" data-platform="Instagram (@fattymatty40k)" data-what="Instagram Reel · Knights With Invulns Short (RED)" data-tell="Done: Mon Nov 23 3:30 PM PT Instagram (@fattymatty40k) — Instagram Reel · Knights With Invulns Short (RED)" data-start="2026-11-23T15:30:00-08:00" data-late-after="2026-11-23T16:00:00-08:00">
+      <div class="card-full">
+        <div class="card-top">
+          <h2><span class="when-date">Mon Nov 23</span><span class="when-time">3:30 PM PT</span></h2>
+          <span class="badge" data-badge hidden></span>
+        </div>
+        <p class="what">Instagram Reel · Knights With Invulns Short (RED)</p>
+        <div class="meta"><div class="meta-row"><span class="meta-key">Late after</span><span class="meta-val">4:00 PM PT</span></div>
 <div class="meta-row"><span class="meta-key">Platform</span><span class="meta-val">Instagram (@fattymatty40k)</span></div>
 <div class="meta-row"><span class="meta-key">Attach</span><span class="meta-val">`ep4/ep4-short2-knights-with-invulns.mp4` under `/workspace/fattymatty40k/shorts/`</span></div>
 <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val">To do — schedule in the Instagram app. Max 5 hashtags. YouTube link stays in the bio, not in the caption. If Ep. 7 launch posts are also in the 3:20 PM window, do those first, then this Reel at 3:30. Confirm the Short is still public first: https://www.youtube.com/shorts/jqbmRzFKick</span></div></div>
-      
-      
+        
+        
         <div class="copy-block">
           <div class="copy-head">
             <span class="copy-label">Caption</span>
@@ -680,6 +957,19 @@ Link in bio for the Short.
 
 #warhammer40k #chaosdaemons #greaterdaemons #40ktournament #warhammer</pre>
         </div>
+      </div>
+      <div class="done-row">
+        <label class="done-toggle">
+          <input type="checkbox" class="done-check" aria-label="Mark as done. Uncheck to reopen." />
+          <span class="done-box" aria-hidden="true"></span>
+          <span class="done-word">Done</span>
+        </label>
+        <div class="done-compact">
+          <p class="done-line">Mon Nov 23 · 3:30 PM PT · Instagram (@fattymatty40k) — Instagram Reel · Knights With Invulns Short (RED)</p>
+          <span class="done-wait">Marked done, waiting on Remy</span>
+          <button type="button" class="tell-remy" data-label="Tell Remy">Tell Remy</button>
+        </div>
+      </div>
     </article>
     
     <details class="done">
@@ -779,6 +1069,58 @@ Link in bio for the Short.
         var pre = block.querySelector('.copy-text');
         if (!btn || !pre) return;
         btn.addEventListener('click', function () { copyFrom(btn, pre.textContent); });
+      });
+
+      var DONE_PREFIX = 'post-queue-done:';
+
+      function readDone(id) {
+        try { return localStorage.getItem(DONE_PREFIX + id) === '1'; } catch (e) { return false; }
+      }
+      function writeDone(id, on) {
+        try {
+          if (on) localStorage.setItem(DONE_PREFIX + id, '1');
+          else localStorage.removeItem(DONE_PREFIX + id);
+        } catch (e) {}
+      }
+      function pruneDoneKeys() {
+        try {
+          var live = {};
+          document.querySelectorAll('.card[data-item-id]').forEach(function (card) {
+            live[card.getAttribute('data-item-id')] = true;
+          });
+          var stale = [];
+          for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            if (!key || key.indexOf(DONE_PREFIX) !== 0) continue;
+            if (!live[key.slice(DONE_PREFIX.length)]) stale.push(key);
+          }
+          stale.forEach(function (key) { localStorage.removeItem(key); });
+        } catch (e) {}
+      }
+      function applyDoneState(card, on) {
+        var box = card.querySelector('.done-check');
+        card.classList.toggle('is-marked-done', !!on);
+        if (box && box.checked !== !!on) box.checked = !!on;
+      }
+
+      pruneDoneKeys();
+      document.querySelectorAll('.card[data-item-id]').forEach(function (card) {
+        var id = card.getAttribute('data-item-id');
+        var box = card.querySelector('.done-check');
+        var tell = card.querySelector('.tell-remy');
+        if (!id || !box) return;
+        applyDoneState(card, readDone(id));
+        box.addEventListener('change', function () {
+          var on = box.checked;
+          applyDoneState(card, on);
+          writeDone(id, on);
+          try { card.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (e) {}
+        });
+        if (tell) {
+          tell.addEventListener('click', function () {
+            copyFrom(tell, card.getAttribute('data-tell') || '');
+          });
+        }
       });
 
       // Badge timing: compare instants. Card times are ISO with a Pacific
