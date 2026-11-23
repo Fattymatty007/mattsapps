@@ -193,6 +193,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
       margin-top: 6px;
     }
 
@@ -221,6 +222,12 @@
       display: inline-block;
     }
     .buy:hover { filter: brightness(1.08); }
+    .buy.buy-wide {
+      text-align: center;
+      line-height: 1.25;
+      flex: 1 1 9rem;
+      padding: 8px 10px;
+    }
 
     .product.soon:hover { border-color: var(--panel-border); }
     .product.soon img { opacity: 0.6; }
@@ -368,6 +375,7 @@
         img: 'shop/img/attactix.jpg',
         link: 'shop/products/attactix-rpg-sunken-cellar.html',
         buy: 'https://mattcarstensen.gumroad.com/l/bgjafu',
+        buyLabel: 'Get it in the Complete Bundle — $10.99',
         extra: { label: 'Read the rules', href: 'https://mattsapps.xyz/attactix/' },
       },
       {
@@ -598,7 +606,7 @@
             <div class="product-tag">${p.tag}</div>
             <div class="product-row">
               <div class="price">${p.price}</div>
-              ${p.comingSoon ? '<span class="soon-badge">Coming soon</span>' : `<a class="buy" href="${p.buy}">Buy</a>`}
+              ${p.comingSoon ? '<span class="soon-badge">Coming soon</span>' : `<a class="buy${p.buyLabel ? ' buy-wide' : ''}" href="${p.buy}">${p.buyLabel || 'Buy'}</a>`}
             </div>
           </div>
           </div>
