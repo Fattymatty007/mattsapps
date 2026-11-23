@@ -9,8 +9,8 @@ site (plain HTML, CSS and a little inline JavaScript, no build step).
 | --- | --- |
 | `index.html` | The hub: links to the apps, the shop, ATTACTIX and FattyMatty 40K, plus the All-Access membership |
 | `apps.html` | Launcher for the web apps (each app lives on its own subdomain, see below) |
-| `shop.html` + `shop/products/*.html` | Digital-product shop: AI prompt packs, budget trackers, planners, resume templates and ATTACTIX games. Each card links to a product page; checkout is Lemon Squeezy or Gumroad depending on the product. Images live in `shop/img/` |
-| `free-prompts.html` | Free AI prompt samplers (email sign-up through Lemon Squeezy) |
+| `shop.html` + `shop/products/*.html` | Digital-product shop: AI prompt packs, budget trackers, planners, resume templates and ATTACTIX games. Each card links to a product page; checkout is through Gumroad. Images live in `shop/img/` |
+| `free-prompts.html` | Free AI prompt samplers (email sign-up through Gumroad) |
 | `attactix.html`, `attactix/` | ATTACTIX card game landing page and the full rules page (`/attactix/`) |
 | `fattymatty40k.html`, `daemons-tracker.html` | FattyMatty 40K channel page and the Chaos Daemons tournament list tracker |
 | `privacy.html`, `terms.html` | Privacy Policy and Terms of Service (linked from every page footer) |
