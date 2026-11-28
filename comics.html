@@ -48,6 +48,27 @@
     .status { display: inline-block; font-size: 0.78rem; font-weight: 600; border-radius: 999px; padding: 4px 11px; }
     .status.soon { color: var(--chalk-dim); border: 1px dashed var(--panel-border-light); opacity: 0.75; }
     .status.read { color: var(--bg); background: var(--plague); }
+    .installment img.thumb {
+      display: block; width: 100%; height: auto; aspect-ratio: 1200 / 1856;
+      object-fit: cover; object-position: top center;
+      border-radius: 0.5rem; margin: 0 0 10px; background: var(--bg);
+    }
+    /* Live installment cards get a thumbnail, so on wider screens they sit
+       as a featured row above the Coming soon grid instead of stretching it. */
+    @media (min-width: 640px) {
+      .installments > a.installment {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .installments > a.installment img.thumb {
+        width: 168px;
+        flex: 0 0 168px;
+        margin: 0;
+      }
+      .installments > a.installment .meta { min-width: 0; }
+    }
 
     .cards { display: grid; grid-template-columns: 1fr; gap: 12px; }
     @media (min-width: 640px) { .cards { grid-template-columns: 1fr 1fr; } }
@@ -108,11 +129,14 @@
     <section class="tab-panel" id="panel-installments" role="tabpanel" aria-labelledby="tab-installments" tabindex="0">
     <h2>Installments</h2>
     <div class="installments">
-      <div class="installment soon" id="installment-01">
-        <div class="num">INSTALLMENT 1</div>
-        <div class="n">Installment 1</div>
-        <span class="status soon">Coming soon</span>
-      </div>
+      <a class="installment" href="comics/installment-01.html" id="installment-01">
+        <img class="thumb" src="comics/img/installment-01-thumb.jpg" width="480" height="742" alt="Cover of Installment 1: the ruined world of Foulfeast under a murky green sky" />
+        <div class="meta">
+          <div class="num">INSTALLMENT 1</div>
+          <div class="n">Installment 1</div>
+          <span class="status read">Read →</span>
+        </div>
+      </a>
       <div class="installment soon" id="installment-02">
         <div class="num">INSTALLMENT 2</div>
         <div class="n">Installment 2</div>
